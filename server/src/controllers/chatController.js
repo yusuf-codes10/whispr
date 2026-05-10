@@ -29,7 +29,7 @@ const handleChat = async (req, res, next) => {
     // send a message to the groq
     const response = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile", // free and very capable
-      messages: {role: 'user', content: message},
+      messages: [{role: 'user', content: message}],
     });
     console.log(response);
 
