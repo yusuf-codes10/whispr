@@ -30,7 +30,7 @@ const handleChat = async (req, res, next) => {
         // checking if user exists in db
     const existingUser = await pool.query('SELECT * FROM users WHERE users.user_id = $1', [userId]);
 
-    if (!existingUser.length) {
+    if (!existingUser.rows.length) {
       return next(createError(404, 'User not found! please register first!'));
     }
 
