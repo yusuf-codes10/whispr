@@ -31,11 +31,22 @@ const handleChat = async (req, res, next) => {
       model: "llama-3.3-70b-versatile", // free and very capable
       messages: [{role: 'user', content: message}],
     });
-    console.log(response.choices[0].message);
+    console.log(response.choices[0].message.content);
 
-    res.status(200).send("It is working");
+    const aiMessage = response.choices[0].message.content;
+
+    // creating a channel for the 1on1 converstaion
+    const channel = chatClient.channel('messaging', `chat-${userId}`, {
+      name: 'whispr',
+      create_by_id: 'whisper_bot'
+    })
+
+    channel.create();
+    channel.sendMessage({text: aiMessage, user_id: 'whisper_bot'});
+
+    res.status(200).json({reply: aiMessage});
   } catch (error) {
-    console.log(error);
+    console.log('error getting the response', error);
     next(error);
   }
 };
