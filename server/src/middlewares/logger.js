@@ -11,7 +11,7 @@ const logger = (req, res, next) => {
   const color = methodColors[req.method] || 'white';
 
   console.log(
-    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`,[color]
+    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`[color]
   );
   next();
 };

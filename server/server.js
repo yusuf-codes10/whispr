@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 
 import handleError from './src/middlewares/handleError.js';
 import catchAll from './src/middlewares/catchAll.js';
+import logger from './src/middlewares/logger.js';
 
 import registerRouter from './src/routes/register.route.js';
 
@@ -13,6 +14,7 @@ dotenv.config();
 
 const app = express();
 
+app.use(logger);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
