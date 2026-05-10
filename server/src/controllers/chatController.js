@@ -31,7 +31,7 @@ const handleChat = async (req, res, next) => {
       model: "llama-3.3-70b-versatile", // free and very capable
       messages: [{role: 'user', content: message}],
     });
-    console.log(response);
+    console.log(response.choices[0].message);
 
     res.status(200).send("It is working");
   } catch (error) {
