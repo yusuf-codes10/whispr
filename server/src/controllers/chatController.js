@@ -1,6 +1,7 @@
 import createError from "../utils/createError.js";
 import { StreamChat } from "stream-chat";
 import Groq from 'groq-sdk';
+import pool from '../db/pool.js';
 
 // Initialize Stream Client
 const chatClient = StreamChat.getInstance(
@@ -26,6 +27,13 @@ const handleChat = async (req, res, next) => {
     if (!userResponse.users.length)
       return next(createError(404, "user not found. Please register first"));
 
+        // checking if user exists in db
+    const existingUser = await pool.query('SELECT * FROM users WHERE users.user_id = $1', [userId]);
+
+    if (!existingUser.length) {
+      return next(createError(404, 'User not found! please register first!'));
+    }
+
     // send a message to the groq
     const response = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile", // free and very capable
@@ -34,6 +42,9 @@ const handleChat = async (req, res, next) => {
     console.log(response.choices[0].message.content);
 
     const aiMessage = response.choices[0].message.content;
+
+    // Save chat to db
+    await pool.query('INSERT INTO chats (user_id, message, reply) VALUES ($1, $2, $3)',[userId, message, aiMessage]);
 
     // creating a channel for the 1on1 converstaion
     const channel = chatClient.channel('messaging', `chat-${userId}`, {
