@@ -7,6 +7,7 @@ import catchAll from './src/middlewares/catchAll.js';
 import logger from './src/middlewares/logger.js';
 
 import registerRouter from './src/routes/register.route.js';
+import chatRouter from './src/routes/chat.route.js';
 
 import { StreamChat } from 'stream-chat';
 
@@ -35,6 +36,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 // register user with streamchat
 // app.post();
 app.use('/register', registerRouter);
+app.use('/chat', chatRouter);
 
 // handle errors
 app.use(catchAll);
