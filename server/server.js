@@ -10,6 +10,8 @@ import registerRouter from './src/routes/register.route.js';
 
 import { StreamChat } from 'stream-chat';
 
+import Groq from 'groq-sdk';
+
 const port = process.env.PORT || 5100;
 
 dotenv.config();
@@ -26,6 +28,9 @@ const chatClient = StreamChat.getInstance(
   process.env.STREAM_API_KEY,
   process.env.STREAM_API_SECRET
 );
+
+// Groq initializer
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // register user with streamchat
 // app.post();
