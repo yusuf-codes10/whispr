@@ -1,5 +1,6 @@
 import createError from "../utils/createError.js";
 import { StreamChat } from "stream-chat";
+import pool from '../db/pool.js';
 
 // Initialize Stream Client
 const chatClient = StreamChat.getInstance(
@@ -20,7 +21,7 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
   try {
     const userId = email.replace(/[^a-zA-Z0-9_-]/g, "_");
 
-    // Check if user exists
+    // Check if user exists in stream
     const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
 
     console.log(userResponse);
@@ -34,6 +35,14 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
         role: "user",
       });
     }
+    // checking if user exists in db
+    const existingUser = await pool.query('SELECT * FROM users WHERE users.user_id = $1', [userId]);
+
+    if (!existingUser.length) {
+      console.log('User does not exist, adding...');
+      await pool.query('INSERT INTO users (user_id, name, email) VALUES ($1, $2, $3)', [userId, name, email]);
+    }
+
     res.status(200).json({userId, name, email});
   } catch (error) {
     next(error);
