@@ -1,8 +1,10 @@
 import express from 'express';
-import handleChat from '../controllers/chatController.js';
+import {handleChat, getChatHistory} from '../controllers/chatController.js';
 
 const router = express.Router();
 
 router.post('/', handleChat);
+
+router.post('/get-messages', getChatHistory);
 
 export default router;

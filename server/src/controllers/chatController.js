@@ -74,9 +74,9 @@ export const getChatHistory = async (req, res, next) => {
   if (!userId) return next(createError(400, 'User id is required!'));
 
   try {
-    const chatHistory = await pool.request('SELECT * FROM chats WHERE chats.user_id = $1', [userId]);
+    const chatHistory = await pool.query('SELECT * FROM chats WHERE chats.user_id = $1', [userId]);
 
-    res.status(200).json({messages: chatHistory});
+    res.status(200).json({messages: chatHistory.rows});
   } catch (error) {
     console.log('Error Fetching chat history', error);
     next(error);
