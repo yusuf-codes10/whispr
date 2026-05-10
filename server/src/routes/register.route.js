@@ -1,10 +1,9 @@
 import express from 'express';
+import handleRegister from '../controllers/registerController.js';
 
 const router = express.Router();
 
 // register users to stream-chat
-router.post('/', (req, res) => {
-    res.send('it is working');
-})
+router.post('/', handleRegister);
 
 export default router;
