@@ -1,13 +1,17 @@
 import createError from "../utils/createError.js";
-import { StreamChat } from 'stream-chat';
+import { StreamChat } from "stream-chat";
 
 // Initialize Stream Client
 const chatClient = StreamChat.getInstance(
   process.env.STREAM_API_KEY,
-  process.env.STREAM_API_SECRET
+  process.env.STREAM_API_SECRET,
 );
 
 const handleRegister = async (req, res, next) => {
+    console.log("KEY:", process.env.STREAM_API_KEY);
+console.log("SECRET:", process.env.STREAM_API_SECRET);
+
+// ?TODO: a race condition to fix later
   const { name, email } = req.body;
 
   if (!name || !email)
@@ -20,7 +24,17 @@ const handleRegister = async (req, res, next) => {
     const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
 
     console.log(userResponse);
-    res.status(200).send("It is working");
+
+    if (!userResponse.users.length) {
+      // Add new user to stream
+      await chatClient.upsertUser({
+        id: userId,
+        name: name,
+        email: email,
+        role: "user",
+      });
+    }
+    res.status(200).json({userId, name, email});
   } catch (error) {
     next(error);
   }
