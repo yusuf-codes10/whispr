@@ -8,6 +8,8 @@ import logger from './src/middlewares/logger.js';
 
 import registerRouter from './src/routes/register.route.js';
 
+import { StreamChat } from 'stream-chat';
+
 const port = process.env.PORT || 5100;
 
 dotenv.config();
@@ -18,6 +20,12 @@ app.use(logger);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+// Initialize Stream Client
+const chatClient = StreamChat.getInstance(
+  process.env.STREAM_API_KEY,
+  process.env.STREAM_API_SECRET
+);
 
 // register user with streamchat
 // app.post();
