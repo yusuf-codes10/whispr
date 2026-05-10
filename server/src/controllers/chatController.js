@@ -12,7 +12,7 @@ const chatClient = StreamChat.getInstance(
 // Groq initializer
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-const handleChat = async (req, res, next) => {
+export const handleChat = async (req, res, next) => {
   console.log("KEY:", process.env.STREAM_API_KEY);
   console.log("SECRET:", process.env.STREAM_API_SECRET);
   const { message, userId } = req.body;
@@ -68,4 +68,17 @@ const handleChat = async (req, res, next) => {
   }
 };
 
-export default handleChat;
+export const getChatHistory = async (req, res, next) => {
+  const {userId} = req.body;
+
+  if (!userId) return next(createError(400, 'User id is required!'));
+
+  try {
+    const chatHistory = await pool.request('SELECT * FROM chats WHERE chats.user_id = $1', [userId]);
+
+    res.status(200).json({messages: chatHistory});
+  } catch (error) {
+    console.log('Error Fetching chat history', error);
+    next(error);
+  }
+}
