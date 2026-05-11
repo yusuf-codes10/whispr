@@ -16,7 +16,7 @@ export const useChatStore = defineStore(
       if (!userStore.userId) return
 
       try {
-        const { data } = await api.post(`${import.meta.env.VITE_API_URL}/get-messages`, {
+        const { data } = await api.post(`${import.meta.env.VITE_API_URL}/chat/get-messages`, {
           userId: userStore.userId,
         })
 
@@ -33,7 +33,7 @@ export const useChatStore = defineStore(
 
     const sendMessage = () => {}
 
-    return { messages, isLoading, userStore, fetchChatMessages, sendMessage }
+    return { messages, isLoading, fetchChatMessages, sendMessage }
   },
   { persist: true },
 )
