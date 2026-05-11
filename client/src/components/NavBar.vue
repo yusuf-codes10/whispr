@@ -8,7 +8,7 @@ const userStore = useUserStore()
 <template>
   <div class="bg-secondary py-2 px flex justify-between">
     <img :src="whisprLogo" alt="" class="w-10 h-10" />
-    <!-- <h1>Whispr</h1> -->
+    <h1 class="text">{{ userStore.username }}</h1>
     <button @click="userStore.logUserOut" class="ghost-button">
       <span class="muted-text">Logout</span>
     </button>
