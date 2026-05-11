@@ -8,8 +8,8 @@ import whisprLogo from '@/assets/whispr.png'
 const userStore = useUserStore()
 const router = useRouter()
 
-const name = ref('')
-const email = ref('')
+const name = ref('test')
+const email = ref('test@gmail.com')
 const error = ref('')
 const loading = ref(false)
 
