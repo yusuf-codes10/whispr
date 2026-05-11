@@ -17,7 +17,7 @@ if (!userStore.userId) {
 // auto scrool to bottom
 const scrollToBottom = () => {
   nextTick(() => {
-    const chatContainer = document.getElementById('chat-container')
+    const chatContainer = document.querySelector('#chat-container')
     if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight
   })
 }
@@ -46,6 +46,27 @@ onMounted(() => {
 <template>
   <div class="h-screen bg-background flex flex-col">
     <NavBar />
+
+    <!-- char -->
+    <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
+      <div
+        v-for="(msg, index) in chatStore.messages"
+        :key="index"
+        class="flex items-start"
+        :class="msg.role === 'user' ? 'justify-end' : 'justify-start'"
+      >
+        <div
+          v-html="formatMessage(msg.content)"
+          class="max-w-xs px-4 py-2 rounded-lg md:max-w-md"
+          :class="msg.role === 'user' ? 'bg-primary text-white' : 'bg-card text-white'"
+        ></div>
+      </div>
+      <div v-if="chatStore.isLoading" class="flex justify-start">
+        <div class="bg-gray-700 text-white px-4 py-2 rounded-lg">
+          <span class="animate-pulse">AI is thinking...</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

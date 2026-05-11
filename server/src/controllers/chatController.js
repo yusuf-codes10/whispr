@@ -69,12 +69,15 @@ export const handleChat = async (req, res, next) => {
 };
 
 export const getChatHistory = async (req, res, next) => {
+    console.log('body:', req.body) // 👈
+  console.log('userId:', req.userId)
   const {userId} = req.body;
 
   if (!userId) return next(createError(400, 'User id is required!'));
 
   try {
     const chatHistory = await pool.query('SELECT * FROM chats WHERE chats.user_id = $1', [userId]);
+    console.log(chatHistory.rows);
 
     res.status(200).json({messages: chatHistory.rows});
   } catch (error) {

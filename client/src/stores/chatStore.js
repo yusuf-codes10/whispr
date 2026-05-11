@@ -13,12 +13,16 @@ export const useChatStore = defineStore(
 
     // * actions
     const fetchChatMessages = async () => {
-      if (!userStore.userId) return
+      // if (!userStore.userId) return
+      console.log('userId at fetch time:', userStore.userId)
 
       try {
-        const { data } = await api.post(`${import.meta.env.VITE_API_URL}/chat/get-messages`, {
-          userId: userStore.userId,
+        const { data } = await api.post(`/chat/get-messages`, {
+          userId: userStore.userId.userId,
         })
+
+        console.log('raw data:', data) // 👈 what does this look like?
+        console.log('messages:', data.messages) // 👈 is this an array?
 
         messages.value = data.messages
           .flatMap((msg) => [
@@ -26,6 +30,7 @@ export const useChatStore = defineStore(
             { role: 'ai', content: msg.reply },
           ])
           .filter((msg) => msg.content) // drops any entry where content is empty or null
+        console.log('messages: ', messages.value)
       } catch (error) {
         console.log('fetching chat error', error)
       }
