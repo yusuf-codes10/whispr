@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue'
-import { api } from '@/services/api.js'
+import api from '@/services/api.js'
 import { useUserStore } from '@/stores/userStore.js'
+import { useRouter } from 'vue-router'
 import whisprLogo from '@/assets/whispr.png'
 
 const userStore = useUserStore()
+const router = useRouter()
 
 const name = ref('')
 const email = ref('')
@@ -21,7 +23,7 @@ const goToChat = async () => {
   loading.value = true
 
   try {
-    const { data } = await api.post(`${import.meta.env.VITE_API_URL}/register-user`, {
+    const { data } = await api.post(`${import.meta.env.VITE_API_URL}/register`, {
       name: name.value,
       email: email.value,
     })
@@ -31,6 +33,8 @@ const goToChat = async () => {
       userId: data.userId,
       username: data.name,
     })
+
+    router.push('/chat')
   } catch (err) {
     error.value = err
   } finally {
