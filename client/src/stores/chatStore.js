@@ -18,7 +18,7 @@ export const useChatStore = defineStore(
 
       try {
         const { data } = await api.post(`/chat/get-messages`, {
-          userId: userStore.userId.userId,
+          userId: userStore.userId,
         })
 
         console.log('raw data:', data) // 👈 what does this look like?
@@ -50,7 +50,7 @@ export const useChatStore = defineStore(
           message,
           userId: userStore.userId,
         })
-        message.value.push({ role: 'ai', content: data.reply })
+        messages.value.push({ role: 'ai', content: data.reply })
       } catch (error) {
         console.error('Error sending message: ', error)
         messages.value.push({

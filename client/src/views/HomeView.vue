@@ -29,10 +29,7 @@ const goToChat = async () => {
     })
 
     // setting the user in pinia
-    userStore.setUser({
-      userId: data.userId,
-      username: data.name,
-    })
+    userStore.setUser(data.userId, data.name)
 
     router.push('/chat')
   } catch (err) {
