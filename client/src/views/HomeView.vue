@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div>This it the Home page</div>
+  <div class="h-screen bg-gray-800">Home Page</div>
 </template>
 
 <style scoped>

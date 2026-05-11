@@ -172,3 +172,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+.title {
+  color: var(--primary);
+  /* the hot pink/magenta — great for headings */
+}
+
+.button {
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+}
+
+.ghost-button {
+  color: var(--primary);
+  background-color: transparent;
+}
+
+.text {
+  color: var(--foreground);
+}
+
+.muted-text {
+  color: var(--muted-foreground);
+}
