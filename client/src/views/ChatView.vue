@@ -68,7 +68,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <ChatInput />
+    <ChatInput @send="chatStore.sendMessage" />
   </div>
 </template>
 
