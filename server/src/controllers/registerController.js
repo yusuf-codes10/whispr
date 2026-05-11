@@ -38,7 +38,7 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
     // checking if user exists in db
     const existingUser = await pool.query('SELECT * FROM users WHERE users.user_id = $1', [userId]);
 
-    if (!existingUser.length) {
+    if (!existingUser.rows.length) {
       console.log('User does not exist, adding...');
       await pool.query('INSERT INTO users (user_id, name, email) VALUES ($1, $2, $3)', [userId, name, email]);
     }

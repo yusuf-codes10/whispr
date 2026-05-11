@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
 
 export const useUserStore = defineStore(
   'user',
@@ -7,6 +8,7 @@ export const useUserStore = defineStore(
     // * state
     const userId = ref('')
     const username = ref('')
+    const router = useRouter()
 
     // * actions
     const setUser = (id, name) => {
@@ -17,6 +19,7 @@ export const useUserStore = defineStore(
     const logUserOut = () => {
       userId.value = ''
       username.value = ''
+      router.push('/')
     }
 
     return { userId, username, setUser, logUserOut }

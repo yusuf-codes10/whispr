@@ -16,15 +16,15 @@ export const handleChat = async (req, res, next) => {
   console.log("KEY:", process.env.STREAM_API_KEY);
   console.log("SECRET:", process.env.STREAM_API_SECRET);
   const { message, userId } = req.body;
-  console.log('userId type:', typeof userId)
-console.log('userId value:', userId)
+  console.log("userId type:", typeof userId);
+  console.log("userId value:", userId);
 
   if (!message || !userId)
     return next(createError(400, "The message and user id are requierd!"));
 
   try {
     // Verify user exists
-    const userResponse = await chatClient.queryUsers({ id: {$eq: userId }});
+    const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
 
     if (!userResponse.users.length)
       return next(createError(404, "user not found. Please register first"));
@@ -40,21 +40,19 @@ console.log('userId value:', userId)
     }
 
     // Fetch last 10 messages for context
-const chatHistory = await pool.query(
-  'SELECT * FROM chats WHERE user_id = $1 ORDER BY created_at ASC LIMIT 10',
-  [userId]
-)
+    const chatHistory = await pool.query(
+      "SELECT * FROM chats WHERE user_id = $1 ORDER BY created_at ASC LIMIT 10",
+      [userId],
+    );
 
-// Format for Groq
-const conversation = chatHistory.rows.flatMap((chat) => [
-  { role: 'user', content: chat.message },
-  { role: 'assistant', content: chat.reply },
-])
+    // Format for Groq
+    const conversation = chatHistory.rows.flatMap((chat) => [
+      { role: "user", content: chat.message },
+      { role: "assistant", content: chat.reply },
+    ]);
 
-// Add the new message
-conversation.push({ role: 'user', content: message })
-
-
+    // Add the new message
+    conversation.push({ role: "user", content: message });
 
     // send a message to the groq
     const response = await groq.chat.completions.create({
@@ -88,19 +86,22 @@ conversation.push({ role: 'user', content: message })
 };
 
 export const getChatHistory = async (req, res, next) => {
-    console.log('body:', req.body) // 👈
-  console.log('userId:', req.userId)
-  const {userId} = req.body;
+  console.log("body:", req.body); // 👈
+  console.log("userId:", req.userId);
+  const { userId } = req.body;
 
-  if (!userId) return next(createError(400, 'User id is required!'));
+  if (!userId) return next(createError(400, "User id is required!"));
 
   try {
-    const chatHistory = await pool.query('SELECT * FROM chats WHERE chats.user_id = $1', [userId]);
+    const chatHistory = await pool.query(
+      "SELECT * FROM chats WHERE chats.user_id = $1",
+      [userId],
+    );
     console.log(chatHistory.rows);
 
-    res.status(200).json({messages: chatHistory.rows});
+    res.status(200).json({ messages: chatHistory.rows });
   } catch (error) {
-    console.log('Error Fetching chat history', error);
+    console.log("Error Fetching chat history", error);
     next(error);
   }
-}
+};
