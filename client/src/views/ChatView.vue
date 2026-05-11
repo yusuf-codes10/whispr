@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 import { useRouter } from 'vue-router'
 import NavBar from '@/components/NavBar.vue'
+import ChatInput from '@/components/ChatInput.vue'
 
 const userStore = useUserStore()
 const chatStore = useChatStore()
@@ -67,6 +68,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
+    <ChatInput />
   </div>
 </template>
 
