@@ -3,6 +3,7 @@ import { onMounted, nextTick } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 import { useRouter } from 'vue-router'
+import NavBar from '@/components/NavBar.vue'
 
 const userStore = useUserStore()
 const chatStore = useChatStore()
@@ -43,7 +44,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="h-screen bg-background flex flex-col"></div>
+  <div class="h-screen bg-background flex flex-col">
+    <NavBar />
+  </div>
 </template>
 
 <style scoped>
