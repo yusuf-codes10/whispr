@@ -1,16 +1,40 @@
 <script setup>
 import { ref } from 'vue'
+import { api } from '@/services/api.js'
+import { useUserStore } from '@/stores/userStore.js'
 import whisprLogo from '@/assets/whispr.png'
+
+const userStore = useUserStore()
 
 const name = ref('')
 const email = ref('')
 const error = ref('')
 const loading = ref(false)
 
-const goToChat = () => {
+const goToChat = async () => {
   if (!name.value || !email.value) {
     error.value = 'Username and Email are required!'
     return
+  }
+
+  error.value = ''
+  loading.value = true
+
+  try {
+    const { data } = await api.post(`${import.meta.env.VITE_API_URL}/register-user`, {
+      name: name.value,
+      email: email.value,
+    })
+
+    // setting the user in pinia
+    userStore.setUser({
+      userId: data.userId,
+      username: data.name,
+    })
+  } catch (err) {
+    error.value = err
+  } finally {
+    loading.value = false
   }
 }
 </script>
