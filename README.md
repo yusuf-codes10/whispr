@@ -1,14 +1,18 @@
 # Whispr
 
-## Overview
+## 📖 Overview
 
 Whispr is a full-stack AI chatbot with a clean, minimal interface.
 Built on the Groq API for fast inference, with persistent chat history,
 JWT authentication, and a serverless PostgreSQL database via Neon.
 
+## Preview
+
+!['task image'](/client/public/tasks.png)
+
 ## 🚀 Live Demo
 
-[whispr.vercel.app](https://...)
+[shinko-two.vercel.app](https://shinko-two.vercel.app/)
 
 ## ✨ Features
 
@@ -29,3 +33,13 @@ JWT authentication, and a serverless PostgreSQL database via Neon.
 Most AI chat interfaces are cluttered or locked behind paywalls.
 I wanted to build something fast, minimal, and fully mine — with
 real auth and persistent history, not just a prompt wrapper.
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/yusef-codes10/shinko
+```
+
+## 👨‍💻 Author
+
+Yusuf — github.com/yusef-codes10
