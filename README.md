@@ -8,11 +8,11 @@ JWT authentication, and a serverless PostgreSQL database via Neon.
 
 ## Preview
 
-!['task image'](/client/public/tasks.png)
+!['task image'](/client/public/whispr.png)
 
 ## 🚀 Live Demo
 
-[shinko-two.vercel.app](https://shinko-two.vercel.app/)
+[whispr-lovat.vercel.app](https://whispr-lovat.vercel.app)
 
 ## ✨ Features
 
