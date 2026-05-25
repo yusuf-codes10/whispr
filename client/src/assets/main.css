@@ -93,7 +93,7 @@
   --font-sans: Outfit, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: Fira Code, monospace;
-  --radius: 0.5rem;
+  --radius: 1.5rem;
   --shadow-x: 0px;
   --shadow-y: 4px;
   --shadow-blur: 8px;
@@ -189,6 +189,7 @@
   font-weight: 600;
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius);
+  /* border-radius: calc(var(--radius) + 1rem); */
   border: none;
   cursor: pointer;
   transition: filter 0.2s ease;
@@ -200,7 +201,7 @@
 
 .ghost-button {
   color: var(--primary);
-  background-color: transparent;
+  background-color: var(--background);
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
@@ -212,7 +213,7 @@
 }
 
 .ghost-button:hover {
-  background-color: var(--card);
+  background-color: var(--muted);
   color: var(--primary-foreground);
 }
 
