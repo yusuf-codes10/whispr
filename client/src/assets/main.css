@@ -207,6 +207,7 @@
   font-weight: 600;
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius);
+  margin: 1rem 0;
   /* border: 1.5px solid var(--primary); */
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;

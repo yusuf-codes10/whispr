@@ -12,13 +12,13 @@ import whisprLogo from '@/assets/whispr.png'
         {{ loading ? 'Logging in...' : 'Continue with Google' }}
       </button>
       <input
-        type="password"
-        class="w-full mb-4 bg-input text-foreground placeholder-muted-foreground border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none rounded px-3 py-2 text-sm transition-all"
-        placeholder="Password"
-        v-model="password"
+        type="email"
+        class="w-full mb-4 bg-input text-foreground placeholder-muted-foreground border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none rounded px-3 py-2 text-sm transition-all rounded-radius"
+        placeholder="Email Adress"
+        v-model="email"
       />
       <button class="button w-full" @click="goToChat">
-        {{ loading ? 'Logging in...' : 'Sign Up' }}
+        {{ loading ? 'Logging in...' : 'Continue' }}
       </button>
       <p v-if="error" class="text-destructive text-center">{{ error }}</p>
     </div>
