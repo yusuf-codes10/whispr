@@ -8,7 +8,7 @@
       <!-- <img :src="whisprLogo" alt="" class="w-25 h-25 mx-auto" /> -->
       <h1 class="title text-center mb-6">Welcome to Whispr</h1>
       <p class="text mb-2">You’ll get smarter responses and can upload files, images, and more.</p>
-      <button class="w-full ghost-button" @click="goToChat">
+      <button class="w-full ghost-button my-4" @click="goToChat">
         {{ loading ? 'Logging in...' : 'Continue with Google' }}
       </button>
 
