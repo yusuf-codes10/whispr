@@ -1,3 +1,4 @@
+import AuthCallbackView from '@/views/AuthCallbackView.vue'
 import ChatView from '@/views/ChatView.vue'
 import HomeView from '@/views/HomeView.vue'
 import SignInView from '@/views/SignInView.vue'
@@ -26,6 +27,12 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: ChatView,
+  },
+  // for google ouath
+  {
+    path: '/auth/callback',
+    name: 'AuthCallback',
+    component: AuthCallbackView,
   },
 ]
 
