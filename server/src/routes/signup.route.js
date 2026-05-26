@@ -2,6 +2,10 @@ import express from 'express';
 
 const router = express.Router();
 
-router.post('/login');
+// redirects user to google login page
+router.get('/google');
+
+// recieves the code from google
+router.get('/google/callback');
 
 export default router;

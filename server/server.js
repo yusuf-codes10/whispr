@@ -36,6 +36,8 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 // register user with streamchat
 // app.post();
 app.use('/register', registerRouter);
+// google auth
+app.use('/auth');
 app.use('/chat', chatRouter);
 
 // handle errors
