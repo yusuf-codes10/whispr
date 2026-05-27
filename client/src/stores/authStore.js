@@ -28,10 +28,17 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const logout = async () => {
+    await api.post('/auth/logout')
+    user.value = null
+    router.push('/sign-up')
+  }
+
   return {
     user,
     getGoogleUrl,
     handleCallback,
     fetchUser,
+    logout,
   }
 })
