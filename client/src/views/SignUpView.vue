@@ -4,18 +4,20 @@ import api from '@/services/api.js'
 import { ref } from 'vue'
 // import { onMounted } from 'vue'
 
+const email = ref('')
 const loading = ref(false)
+const error = ref(null)
 
 // calling the GET /auth/google
 const getGoogleUrl = async () => {
-  loading.value = true
-  const response = await api.get('/auth/google')
-  window.location.href = response.data.url
+  try {
+    loading.value = true
+    const response = await api.get('/auth/google')
+    window.location.href = response.data.url
+  } catch (err) {
+    error.value = err
+  }
 }
-
-// onMounted(async () => {
-//   await getGoogleUrl()
-// })
 </script>
 
 <template>
