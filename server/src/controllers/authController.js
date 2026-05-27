@@ -1,5 +1,6 @@
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
+import { StreamChat } from "stream-chat";
 import pool from "../db/pool.js";
 
 import createError from "../utils/createError.js";
@@ -8,6 +9,12 @@ const client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
   process.env.GOOGLE_REDIRECT_URI, // http://localhost:5173/auth/callbacku
+);
+
+// Initialize Stream Client
+const chatClient = StreamChat.getInstance(
+  process.env.STREAM_API_KEY,
+  process.env.STREAM_API_SECRET,
 );
 
 // Step 1: Generate Google login URL
@@ -24,6 +31,8 @@ export const getGoogleAuthUrl = (req, res) => {
 // Vue picks up ?code=xyz and sends it here
 export const handleGoogleCallback = async (req, res, next) => {
   try {
+        console.log("KEY:", process.env.STREAM_API_KEY);
+console.log("SECRET:", process.env.STREAM_API_SECRET);
     const { code } = req.body;
 
     // Exchange code for tokens
