@@ -23,9 +23,10 @@ const app = express();
 
 app.use(logger);
 app.use(cors({
+  origin: 'http://localhost:5173',
   credentials: true  // ← required for cookies to work cross-origin
 }));
-app.use(cookieParser);
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
