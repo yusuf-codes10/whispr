@@ -1,6 +1,7 @@
 import AuthCallbackView from '@/views/AuthCallbackView.vue'
 import ChatView from '@/views/ChatView.vue'
 import HomeView from '@/views/HomeView.vue'
+import NewChatView from '@/views/NewChatView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -27,6 +28,11 @@ const routes = [
     path: '/chat',
     name: 'Chat',
     component: ChatView,
+  },
+  {
+    path: '/new-chat',
+    name: 'NewChat',
+    component: NewChatView,
   },
   // for google ouath
   {

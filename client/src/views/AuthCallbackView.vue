@@ -12,10 +12,7 @@ onMounted(async () => {
   if (!code) return router.push('/sign-up')
 
   try {
-    const response = await api.post(`${import.meta.env.VITE_API_URL}/auth/google/callback`, {
-      code,
-    })
-    console.log(response)
+    await api.post('/auth/google/callback', { code })
     router.push('/chat') // cookie is already set, just redirect
   } catch (error) {
     console.log('failed signing in', error)
