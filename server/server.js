@@ -7,7 +7,6 @@ import handleError from './src/middlewares/handleError.js';
 import catchAll from './src/middlewares/catchAll.js';
 import logger from './src/middlewares/logger.js';
 
-import registerRouter from './src/routes/register.route.js';
 import chatRouter from './src/routes/chat.route.js';
 import googleOauthRouter from './src/routes/signup.route.js';
 
@@ -41,7 +40,6 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // register user with streamchat
 // app.post();
-app.use('/register', registerRouter);
 // google auth
 app.use('/auth', googleOauthRouter);
 app.use('/chat', chatRouter);
