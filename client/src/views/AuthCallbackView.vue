@@ -16,7 +16,7 @@ onMounted(async () => {
       code,
     })
     console.log(response)
-    router.push('/chat')
+    router.push('/chat') // cookie is already set, just redirect
   } catch (error) {
     console.log('failed signing in', error)
     router.push('/sign-up')
