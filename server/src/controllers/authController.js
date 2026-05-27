@@ -20,40 +20,52 @@ export const getGoogleAuthUrl = (req, res) => {
 
 // Step 2: Handle the code Vue sends back
 // Vue picks up ?code=xyz and sends it here
-export const handleGoogleCallback = async (req, res) => {
-  const { code } = req.body;
+export const handleGoogleCallback = async (req, re, next) => {
 
-  // Exchange code for tokens
-  const { tokens } = await client.getToken(code);
-  client.setCredentials(tokens);
+  try {
+    const { code } = req.body;
 
-  // Get user info from Google
-  const ticket = await client.verifyIdToken({
-    idToken: tokens.id_token,
-    audience: process.env.GOOGLE_CLIENT_ID,
-  });
+    // Exchange code for tokens
+    const { tokens } = await client.getToken(code);
+    client.setCredentials(tokens);
 
-  const { sub: google_id, email, name, picture } = ticket.getPayload();
+    // Get user info from Google
+    const ticket = await client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
 
-  // Check if user exists in YOUR database
-  const user = await pool.query("SELECT * FROM users WHERE google_id = $1", [
-    google_id,
-  ]);
+    const { sub: google_id, email, name, picture } = ticket.getPayload();
 
-  if (user.rows.length === 0) {
-    // New user — insert them
-    user = await pool.query(
-      "INSERT INTO users (google_id, email, name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING *",
-      [google_id, email, name, picture],
-    );
+    // Check if user exists in YOUR database
+    let user = await pool.query("SELECT * FROM users WHERE google_id = $1", [
+      google_id,
+    ]);
+
+    console.log('user has been created it the db');
+
+    if (user.rows.length === 0) {
+      // New user — insert them
+      user = await pool.query(
+        "INSERT INTO users (google_id, email, name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING *",
+        [google_id, email, name, picture],
+      );
+      console.log('user created in db');
+    } else {
+      console.log('existing user found')
+    }
+
+      // Sign your own JWT
+    const token = jwt.sign(
+      { id: user.rows[0].id },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    )
+
+    res.json({ token })
+
+  } catch (error) {
+    console.log('failed to sign user in', error);
+    next(error)
   }
-
-    // Sign your own JWT
-  const token = jwt.sign(
-    { id: user.rows[0].id },
-    process.env.JWT_SECRET,
-    { expiresIn: '7d' }
-  )
-
-  res.json({ token })
 };
