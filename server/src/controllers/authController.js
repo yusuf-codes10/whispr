@@ -110,15 +110,3 @@ export const logout = (req, res) => {
   res.clearCookie("token");
   res.json({ message: "logged out" });
 };
-
-export const getMe = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) return next(createError(401, "NOT AUTHENTICATED"));
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ id: decoded.id });
-  } catch {
-    next(createError(401, "INVALID TOKEN"));
-  }
-};

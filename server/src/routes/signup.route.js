@@ -1,5 +1,6 @@
 import express from 'express';
 import {handleGoogleCallback, getGoogleAuthUrl, logout, getMe} from '../controllers/authController.js';
+import verifyToken from '../middlewares/verifyToken.js';
 
 const router = express.Router();
 
@@ -11,6 +12,8 @@ router.post('/google/callback', handleGoogleCallback);
 
 router.post('/logout', logout);
 
-router.get('/me', getMe);
+router.get('/me', verifyToken, () => {
+    res.status(200).json({ user: req.user });
+});
 
 export default router;
