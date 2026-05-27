@@ -2,6 +2,8 @@ import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
 import pool from "../db/pool.js";
 
+import createError from "../utils/createError.js";
+
 const client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
@@ -66,6 +68,6 @@ export const handleGoogleCallback = async (req, re, next) => {
 
   } catch (error) {
     console.log('failed to sign user in', error);
-    next(error)
+    next(createError(500, 'INTERNAL SEVER ERROR'));
   }
 };
