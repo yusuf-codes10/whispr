@@ -1,10 +1,14 @@
 <script setup>
 // import whisprLogo from '@/assets/whispr.png'
 import api from '@/services/api.js'
+import { ref } from 'vue'
 // import { onMounted } from 'vue'
+
+const loading = ref(false)
 
 // calling the GET /auth/google
 const getGoogleUrl = async () => {
+  loading.value = true
   const response = await api.get('/auth/google')
   window.location.href = response.data.url
 }
@@ -20,7 +24,11 @@ const getGoogleUrl = async () => {
       <!-- <img :src="whisprLogo" alt="" class="w-25 h-25 mx-auto" /> -->
       <h1 class="title text-center mb-6">Welcome to Whispr</h1>
       <p class="text mb-2">You’ll get smarter responses and can upload files, images, and more.</p>
-      <button class="w-full ghost-button my-4" @click="getGoogleUrl">
+      <button
+        class="w-full ghost-button my-4 disabled:opacity-50 disabled:cursor-not-allowed"
+        :disabled="loading"
+        @click="getGoogleUrl"
+      >
         {{ loading ? 'Logging in...' : 'Continue with Google' }}
       </button>
 
