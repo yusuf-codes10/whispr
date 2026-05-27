@@ -18,9 +18,19 @@ export const useAuthStore = defineStore('auth', () => {
     router.push('/chat')
   }
 
+  const fetchUser = async () => {
+    try {
+      const response = await api.get('/auth/me')
+      user.value = response.data.user
+    } catch {
+      user.value = null
+    }
+  }
+
   return {
     user,
     getGoogleUrl,
     handleCallback,
+    fetchUser,
   }
 })
