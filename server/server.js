@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
 import handleError from './src/middlewares/handleError.js';
 import catchAll from './src/middlewares/catchAll.js';
@@ -22,6 +23,7 @@ const app = express();
 
 app.use(logger);
 app.use(cors());
+app.use(cookieParser);
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
