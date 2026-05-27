@@ -31,8 +31,8 @@ export const getGoogleAuthUrl = (req, res) => {
 // Vue picks up ?code=xyz and sends it here
 export const handleGoogleCallback = async (req, res, next) => {
   try {
-        console.log("KEY:", process.env.STREAM_API_KEY);
-console.log("SECRET:", process.env.STREAM_API_SECRET);
+    console.log("KEY:", process.env.STREAM_API_KEY);
+    console.log("SECRET:", process.env.STREAM_API_SECRET);
     const { code } = req.body;
 
     // Exchange code for tokens
@@ -49,7 +49,9 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
     const { sub: google_id, email, name, picture } = ticket.getPayload();
 
     // 2. Check/create in Stream using google_id
-    const userResponse = await chatClient.queryUsers({ id: { $eq: google_id } });
+    const userResponse = await chatClient.queryUsers({
+      id: { $eq: google_id },
+    });
 
     if (!userResponse.users.length) {
       // Add new user to stream
@@ -80,9 +82,15 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
     }
 
     // 4. Sign JWT
-    const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign(
+      {
+        id: user.rows[0].user_id,
+        name: user.rows[0].name,
+        avatar: user.rows[0].avatar_url,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" },
+    );
 
     res.cookie("token", token, {
       httpOnly: true, // JS can't access it — XSS protection
@@ -99,18 +107,18 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
 };
 
 export const logout = (req, res) => {
-  res.clearCookie('token')
-  res.json({ message: 'logged out' })
+  res.clearCookie("token");
+  res.json({ message: "logged out" });
 };
 
 export const getMe = (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) return next(createError(401, 'NOT AUTHENTICATED'));
+  if (!token) return next(createError(401, "NOT AUTHENTICATED"));
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     res.json({ id: decoded.id });
   } catch {
-    next(createError(401, 'INVALID TOKEN'));
+    next(createError(401, "INVALID TOKEN"));
   }
-}
+};
