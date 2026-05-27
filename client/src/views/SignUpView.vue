@@ -1,5 +1,17 @@
 <script setup>
 // import whisprLogo from '@/assets/whispr.png'
+import api from '@/services/api.js'
+import { onMounted } from 'vue'
+
+// calling the GET /auth/google
+const getGoogleUrl = async () => {
+  const { url } = await api.get('/auth/google')
+  console.log(`the google url is ${url}`)
+}
+
+onMounted(async () => {
+  await getGoogleUrl()
+})
 </script>
 
 <template>
