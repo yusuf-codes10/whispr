@@ -22,7 +22,7 @@ export const getGoogleAuthUrl = (req, res) => {
 
 // Step 2: Handle the code Vue sends back
 // Vue picks up ?code=xyz and sends it here
-export const handleGoogleCallback = async (req, re, next) => {
+export const handleGoogleCallback = async (req, res, next) => {
   try {
     const { code } = req.body;
 

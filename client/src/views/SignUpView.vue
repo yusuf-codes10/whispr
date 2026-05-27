@@ -16,6 +16,8 @@ const getGoogleUrl = async () => {
     window.location.href = response.data.url
   } catch (err) {
     error.value = err
+  } finally {
+    loading.value = false
   }
 }
 </script>
