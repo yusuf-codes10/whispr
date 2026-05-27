@@ -5,8 +5,8 @@ import { onMounted } from 'vue'
 
 // calling the GET /auth/google
 const getGoogleUrl = async () => {
-  const { url } = await api.get('/auth/google')
-  console.log(`the google url is ${url}`)
+  const url = await api.get('/auth/google')
+  console.log('the google url is', url)
 }
 
 onMounted(async () => {
