@@ -14,7 +14,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const handleCallback = async (code) => {
-    const response = await api.post('/auth/google/callback', { code })
+    await api.post('/auth/google/callback', { code })
+    await fetchUser()
     router.push('/chat')
   }
 
