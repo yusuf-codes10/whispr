@@ -23,7 +23,6 @@ export const getGoogleAuthUrl = (req, res) => {
 // Step 2: Handle the code Vue sends back
 // Vue picks up ?code=xyz and sends it here
 export const handleGoogleCallback = async (req, re, next) => {
-
   try {
     const { code } = req.body;
 
@@ -44,7 +43,7 @@ export const handleGoogleCallback = async (req, re, next) => {
       google_id,
     ]);
 
-    console.log('user has been created it the db');
+    console.log("user has been created it the db");
 
     if (user.rows.length === 0) {
       // New user — insert them
@@ -52,22 +51,26 @@ export const handleGoogleCallback = async (req, re, next) => {
         "INSERT INTO users (google_id, email, name, avatar_url) VALUES ($1, $2, $3, $4) RETURNING *",
         [google_id, email, name, picture],
       );
-      console.log('user created in db');
+      console.log("user created in db");
     } else {
-      console.log('existing user found')
+      console.log("existing user found");
     }
 
-      // Sign your own JWT
-    const token = jwt.sign(
-      { id: user.rows[0].id },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    )
+    // Sign your own JWT
+    const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-    res.json({ token })
+    res.cookie("token", token, {
+      httpOnly: true, // JS can't access it — XSS protection
+      secure: process.env.NODE_ENV === "production", // HTTPS only in prod
+      sameSite: "lax", // CSRF protection
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+    });
 
+    res.json({ message: "logged in" });
   } catch (error) {
-    console.log('failed to sign user in', error);
-    next(createError(500, 'INTERNAL SEVER ERROR'));
+    console.log("failed to sign user in", error);
+    next(createError(500, "INTERNAL SEVER ERROR"));
   }
 };
