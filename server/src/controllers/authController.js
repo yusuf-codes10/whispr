@@ -23,6 +23,7 @@ export const getGoogleAuthUrl = (req, res) => {
   const url = client.generateAuthUrl({
     access_type: "offline",
     scope: ["openid", "email", "profile"],
+    prompt: 'select_account'  // ← forces account picker every time
   });
   res.json({ url });
 };

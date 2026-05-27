@@ -1,5 +1,5 @@
 import express from 'express';
-import {handleGoogleCallback, getGoogleAuthUrl, logout, getMe} from '../controllers/authController.js';
+import {handleGoogleCallback, getGoogleAuthUrl, logout} from '../controllers/authController.js';
 import verifyToken from '../middlewares/verifyToken.js';
 
 const router = express.Router();
