@@ -1,5 +1,14 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
+import api from '@/services/api.js'
 
-export const useAuthStore = defineStore('auth', () => {})
+export const useAuthStore = defineStore('auth', () => {
+  // *state
+  const user = ref(null)
+
+  const register = async (credentials) => {}
+
+  return {
+    user,
+  }
+})
