@@ -74,3 +74,8 @@ export const handleGoogleCallback = async (req, re, next) => {
     next(createError(500, "INTERNAL SEVER ERROR"));
   }
 };
+
+export const logout = (req, res) => {
+  res.clearCookie('token')
+  res.json({ message: 'logged out' })
+};
