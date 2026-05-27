@@ -45,24 +45,23 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
-        // Check if user exists in stream
-
-        if (!userResponse.users.length) {
-      // Add new user to stream
-      await chatClient.upsertUser({
-        id: userId,
-        name: name,
-        email: email,
-        role: "user",
-      });
-    }
     // 1. Get user info from Google
     const { sub: google_id, email, name, picture } = ticket.getPayload();
 
     // 2. Check/create in Stream using google_id
     const userResponse = await chatClient.queryUsers({ id: { $eq: google_id } });
 
-    // Check if user exists in YOUR database
+    if (!userResponse.users.length) {
+      // Add new user to stream
+      await chatClient.upsertUser({
+        id: google_id,
+        name: name,
+        email: email,
+        role: "user",
+      });
+    }
+
+    // 3. Check/create in your DB
     let user = await pool.query("SELECT * FROM users WHERE google_id = $1", [
       google_id,
     ]);
@@ -80,7 +79,7 @@ console.log("SECRET:", process.env.STREAM_API_SECRET);
       console.log("existing user found");
     }
 
-    // Sign your own JWT
+    // 4. Sign JWT
     const token = jwt.sign({ id: user.rows[0].id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
