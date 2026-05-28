@@ -13,5 +13,8 @@ const chatClient = StreamChat.getInstance(
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export const sendMessage = async (req, res, next) => {
+    // grab the chat content from user
+    const {content, chatId} = req.body;
 
+    if (!content || !chatId) return next(createError(401, 'message is required!'));
 }
