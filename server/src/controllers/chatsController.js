@@ -50,11 +50,24 @@ export const createNewChat = async (req, res, next) => {
 
     // generate the title
     const title = await generateChatTitle(message);
-    await pool.query("INSERT INTO chats (title, user_id) VALUES ($1, $2)", [
+    const {rows} = await pool.query("INSERT INTO chats (title, user_id) VALUES ($1, $2) RETURNING *", [
       title,
       userId,
     ]);
 
-    // we need to create streamChat
-  } catch (error) {}
+    const chat = rows[0];
+
+        // creating a channel for the 1on1 converstaion
+    const channel = chatClient.channel("messaging", `chat-${userId}`, {
+      name: "whispr",
+      created_by_id: "whisper_bot", // fixed
+    });
+
+    await channel.create();
+
+    res.status(201).json({chat});
+  } catch (error) {
+    console.log('failed creating a new chat', error);
+    next(error);
+  }
 };
