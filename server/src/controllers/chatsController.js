@@ -41,3 +41,14 @@ export const createNewChat = async (req, res, next) => {
         
     }
 }
+
+export const generateChatTitle = async (req, res, next) => {
+    const message = req.body.message;
+    const prompt = 'Extract a title out of this: ';
+    // send a message to the groq
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile", // free and very capable
+      messages: prompt + message,
+    });
+    console.log(response.choices[0].message.content);
+}
