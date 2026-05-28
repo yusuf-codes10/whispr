@@ -11,3 +11,4 @@ const generateChatTitle = async (message) => {
 }
 
 export default generateChatTitle;
+// ! let the error bubble up to the controller to catch it
