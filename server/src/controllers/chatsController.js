@@ -71,3 +71,7 @@ export const createNewChat = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteChat = async (req, res, next) => {
+    const chatId = req.params.id;
+}
