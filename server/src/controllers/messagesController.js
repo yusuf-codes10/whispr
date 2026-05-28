@@ -18,4 +18,20 @@ export const sendMessage = async (req, res, next) => {
     const {content, chatId} = req.body;
 
     if (!content || !chatId) return next(createError(401, 'message is required!'));
+
+    try {
+        // save the message to db
+        await pool.query('INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *', ['user', content]);
+
+            // send a message to the groq
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile", // free and very capable
+      messages: [{ role: "user", content:  content }],
+    });
+
+        
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
 }
