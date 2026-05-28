@@ -44,12 +44,18 @@ export const createNewChat = async (req, res, next) => {
 };
 
 export const generateChatTitle = async (req, res, next) => {
-  const message = req.body.message;
-  const prompt = "Extract a title out of this, 3-5 words, significant title: ";
-  // send a message to the groq
-  const response = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile", // free and very capable
-    messages: [{ role: "user", content: prompt + message }],
-  });
-  console.log(response.choices[0].message.content);
+  try {
+    const message = req.body.message;
+    const prompt =
+      "Extract a title out of this, 3-5 words, significant title: ";
+    // send a message to the groq
+    const response = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile", // free and very capable
+      messages: [{ role: "user", content: prompt + message }],
+    });
+    const title = response.choices[0].message.content;
+    res.status(200).json({ title });
+  } catch (error) {
+    next(error);
+  }
 };
