@@ -11,3 +11,8 @@ const chatClient = StreamChat.getInstance(
 
 // Groq initializer
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+// get all chats by user
+const getAllChats = async (req, res, next) => {
+    const userId = req.user.id  // ← verifyToken already put it here
+}
