@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', verifyToken, getAllChats);
 
 // create a chat
-router.post('/newChat', verifyToken, createNewChat);
+router.post('/', verifyToken, createNewChat);
 
 // generate chat title
 router.post('/title', generateChatTitle);
