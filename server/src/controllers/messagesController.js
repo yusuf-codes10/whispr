@@ -21,7 +21,7 @@ export const sendMessage = async (req, res, next) => {
 
     try {
         // save the message to db
-        await pool.query('INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *', ['user', content]);
+        await pool.query('INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *', ['user', content, chatId]);
 
             // send a message to the groq
     const response = await groq.chat.completions.create({
@@ -29,9 +29,14 @@ export const sendMessage = async (req, res, next) => {
       messages: [{ role: "user", content:  content }],
     });
 
-        
+    const whisprMessage = response.choices[0].message.content;
+
+    // save AI response to db
+    await pool.query('INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *', ['assistant', whisprMessage, chatId]);
+
+    res.status(201).json({msg: whisprMessage});
     } catch (error) {
-        console.log(error);
+        console.log('error sending message: ', error);
         next(error);
     }
 }
