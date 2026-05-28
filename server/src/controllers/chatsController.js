@@ -26,3 +26,7 @@ export const getAllChats = async (req, res, next) => {
         next(error);
     }
 }
+
+export const createNewChat = async (req, res, next) => {
+
+}
