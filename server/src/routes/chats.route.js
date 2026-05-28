@@ -10,6 +10,7 @@ router.get('/', verifyToken, getAllChats);
 // create a chat
 router.post('/', verifyToken, createNewChat);
 
+// delete a chat
 router.delete('/:id', verifyToken, deleteChat);
 
 export default router;
