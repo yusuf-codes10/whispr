@@ -73,12 +73,14 @@ export const createNewChat = async (req, res, next) => {
 };
 
 export const deleteChat = async (req, res, next) => {
+const userId = req.user.id;
   const chatId = req.params.id;
 
   if (!chatId) return next(createError(400, "chat id is required"));
   try {
-    await pool.query("DELETE FROM chats WHERE chats.id = $1 RETURNING *", [
+    await pool.query("DELETE FROM chats WHERE chats.id = $1 AND chats.user_id = $2 RETURNING *", [
       chatId,
+      userId
     ]);
 
     if (!rows.length) return next(createError(404, "chat not found"));
