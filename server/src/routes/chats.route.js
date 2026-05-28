@@ -10,7 +10,4 @@ router.get('/', verifyToken, getAllChats);
 // create a chat
 router.post('/', verifyToken, createNewChat);
 
-// generate chat title
-router.post('/title', generateChatTitle);
-
 export default router;

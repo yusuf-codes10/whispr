@@ -1,4 +1,5 @@
 import createError from "../utils/createError.js";
+import generateChatTitle from "../utils/generateChatMessage.js";
 import { StreamChat } from "stream-chat";
 import pool from "../db/pool.js";
 import Groq from "groq-sdk";
@@ -41,21 +42,4 @@ export const createNewChat = async (req, res, next) => {
   try {
     await pool.query("INSERT INTO chats ()");
   } catch (error) {}
-};
-
-export const generateChatTitle = async (req, res, next) => {
-  try {
-    const message = req.body.message;
-    const prompt =
-      "Extract a title out of this, 3-5 words, significant title: ";
-    // send a message to the groq
-    const response = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile", // free and very capable
-      messages: [{ role: "user", content: prompt + message }],
-    });
-    const title = response.choices[0].message.content;
-    res.status(200).json({ title });
-  } catch (error) {
-    next(error);
-  }
 };
