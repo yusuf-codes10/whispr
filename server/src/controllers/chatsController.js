@@ -50,14 +50,14 @@ export const createNewChat = async (req, res, next) => {
 
     // generate the title
     const title = await generateChatTitle(message);
-    const {rows} = await pool.query("INSERT INTO chats (title, user_id) VALUES ($1, $2) RETURNING *", [
-      title,
-      userId,
-    ]);
+    const { rows } = await pool.query(
+      "INSERT INTO chats (title, user_id) VALUES ($1, $2) RETURNING *",
+      [title, userId],
+    );
 
     const chat = rows[0];
 
-        // creating a channel for the 1on1 converstaion
+    // creating a channel for the 1on1 converstaion
     const channel = chatClient.channel("messaging", `chat-${userId}`, {
       name: "whispr",
       created_by_id: "whisper_bot", // fixed
@@ -65,13 +65,30 @@ export const createNewChat = async (req, res, next) => {
 
     await channel.create();
 
-    res.status(201).json({chat});
+    res.status(201).json({ chat });
   } catch (error) {
-    console.log('failed creating a new chat', error);
+    console.log("failed creating a new chat", error);
     next(error);
   }
 };
 
 export const deleteChat = async (req, res, next) => {
-    const chatId = req.params.id;
-}
+  const chatId = req.params.id;
+
+  if (!chatId) return next(createError(400, "chat id is required"));
+  try {
+    await pool.query("DELETE FROM chats WHERE chats.id = $1 RETURNING *", [
+      chatId,
+    ]);
+
+    if (!rows.length) return next(createError(404, "chat not found"));
+
+    // delete the corresponding stream channel
+    const channel = chatClient.channel("messaging", `chat-${chatId}`);
+    await channel.delete();
+    res.status(201).json({ msg: "chat has been deleted" });
+  } catch (error) {
+    console.log("error deelting chat: ", error);
+    next(error);
+  }
+};
