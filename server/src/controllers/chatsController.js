@@ -37,9 +37,24 @@ export const createNewChat = async (req, res, next) => {
 
   if (!userId) return next(createError(400, "user id is required!"));
 
-  // grab chat info from the user
-
   try {
-    await pool.query("INSERT INTO chats ()");
+    const message = req.body.message;
+
+    if (!message) return next(createError(400, "message is required!"));
+
+    // Verify user exists
+    const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
+
+    if (!userResponse.users.length)
+      return next(createError(404, "user not found. Please register first"));
+
+    // generate the title
+    const title = await generateChatTitle(message);
+    await pool.query("INSERT INTO chats (title, user_id) VALUES ($1, $2)", [
+      title,
+      userId,
+    ]);
+
+    // we need to create streamChat
   } catch (error) {}
 };
