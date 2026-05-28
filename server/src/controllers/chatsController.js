@@ -28,5 +28,16 @@ export const getAllChats = async (req, res, next) => {
 }
 
 export const createNewChat = async (req, res, next) => {
+    // grab the user id again, form the verifyToken(auth) mw
+    const userId = req.user.id;
 
+    if (!userId) return next(createError(400, 'user id is required!'));
+
+    // grab chat info from the user
+
+    try {
+        await pool.query('INSERT INTO chats ()')
+    } catch (error) {
+        
+    }
 }
