@@ -58,7 +58,7 @@ const handeLogout = async () => {
     </div>
 
     <!-- 2. Nav links -->
-    <div class="flex-1 px-2 py-3 flex flex-col gap-1">
+    <div class="flex-1 px-2 py-3 flex flex-col gap-1 min-h-0">
       <!-- Markets section -->
       <transition
         enter-active-class="transition-opacity duration-150 ease-in"
@@ -92,7 +92,7 @@ const handeLogout = async () => {
       </div>
 
       <!-- TODO: should add overflow + style the chat title element -->
-      <div class="flex flex-col gap-0.5 overflow-y-auto">
+      <div class="flex flex-col gap-0.5 overflow-y-auto min-h-0">
         <RouterLink
           v-for="chat in chats"
           :key="chat.id"
@@ -106,35 +106,11 @@ const handeLogout = async () => {
             leave-to-class="opacity-0"
           >
             <span v-if="props.isOpen" class="whitespace-nowrap text-sm truncate">
-              {{ chat.title }}
+              {{ chat.title.replace(/"/g, '') }}
             </span>
           </transition>
         </RouterLink>
       </div>
-
-      <!-- Divider -->
-      <!-- <hr class="border-bg-border my-2" /> -->
-
-      <ul class="flex flex-col gap-0.5">
-        <li v-for="item in accountItems" :key="item.name">
-          <RouterLink
-            :to="{ name: item.router }"
-            class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
-          >
-            <span class="text-sm min-w-5 flex items-center justify-center">
-              <i :class="item.icon" class="fa-solid"></i>
-            </span>
-            <transition
-              enter-active-class="transition-opacity duration-150 ease-in"
-              leave-active-class="transition-opacity duration-150 ease-in"
-              enter-from-class="opacity-0"
-              leave-to-class="opacity-0"
-            >
-              <span v-if="props.isOpen" class="whitespace-nowrap text-sm">{{ item.name }}</span>
-            </transition>
-          </RouterLink>
-        </li>
-      </ul>
     </div>
 
     <!-- 3. User + Logout -->
