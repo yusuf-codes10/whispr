@@ -1,6 +1,7 @@
 import createError from "../utils/createError.js";
 import generateChatTitle from "../utils/generateChatMessage.js";
 import { StreamChat } from "stream-chat";
+import sendMessage from "../utils/sendMessage.js";
 import pool from "../db/pool.js";
 import Groq from "groq-sdk";
 
@@ -103,32 +104,9 @@ export const sendMessage = async (req, res, next) => {
 
   try {
     const channel = chatClient.channel("messaging", `chat-${chatId}`);
-    // save the message to db
-    await pool.query(
-      "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
-      ["user", content, chatId],
-    );
 
-    // send through Stream (for realtime de
-    // livery to the frontend)
-    await channel.sendMessage({ text: content, user_id: String(userId) });
+    await sendMessage(groq, pool, channel, content, chatId);
 
-    // send a message to the groq
-    const response = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile", // free and very capable
-      messages: [{ role: "user", content: content }],
-    });
-
-    const whisprMessage = response.choices[0].message.content;
-
-    // save AI response to db
-    await pool.query(
-      "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
-      ["assistant", whisprMessage, chatId],
-    );
-
-    // send AI response through Stream
-    await channel.sendMessage({ text: whisprMessage, user_id: "whisper_bot" });
 
     res.status(201).json({ msg: whisprMessage });
   } catch (error) {
