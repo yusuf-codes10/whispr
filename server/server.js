@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 import handleError from './src/middlewares/handleError.js';
@@ -17,8 +19,6 @@ import { StreamChat } from 'stream-chat';
 import Groq from 'groq-sdk';
 
 const port = process.env.PORT || 5100;
-
-dotenv.config();
 
 const app = express();
 

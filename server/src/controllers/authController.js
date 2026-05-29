@@ -93,10 +93,20 @@ export const handleGoogleCallback = async (req, res, next) => {
       { expiresIn: "7d" },
     );
 
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   // secure: process.env.NODE_ENV === "production",
+    //   secure: true,        // ← force false for local dev
+    //   sameSite: "none", // ← fix
+    //   maxAge: 7 * 24 * 60 * 60 * 1000,
+    // });
+
+        const isProd = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none", // ← fix
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
