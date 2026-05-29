@@ -11,7 +11,7 @@ import logger from './src/middlewares/logger.js';
 
 // import chatRouter from './src/routes/chat.route.js';
 import chatsRouter from './src/routes/chats.route.js';
-import messagesRouter from './src/routes/messages.route.js';
+// import messagesRouter from './src/routes/messages.route.js';
 import googleOauthRouter from './src/routes/signup.route.js';
 
 import { StreamChat } from 'stream-chat';
@@ -46,7 +46,7 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 app.use('/auth', googleOauthRouter);
 app.use('/chats', chatsRouter);
 // app.use('/chat', chatRouter);
-app.use('/messages', messagesRouter);
+// app.use('/messages', messagesRouter);
 
 // handle errors
 app.use(catchAll);
