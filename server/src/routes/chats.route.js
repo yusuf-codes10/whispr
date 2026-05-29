@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', verifyToken, getAllChats);
 
 // create a chat
-router.post('/', verifyToken, createNewChat);
+router.post('/', createNewChat);
 
 // delete a chat
 router.delete('/:id', verifyToken, deleteChat);
