@@ -20,7 +20,7 @@ export const useChatStore = defineStore('chat', () => {
       })
 
       console.log('raw data:', data) // 👈 what does this look like?
-      console.log('messages:', data.messages) // 👈 is this an array?
+      console.log('messages:', data.chat) // 👈 is this an array?
 
       messages.value = data.messages
         .flatMap((msg) => [
