@@ -15,11 +15,11 @@ export const useChatStore = defineStore(
     // * actions
     const fetchChatMessages = async () => {
       // if (!userStore.userId) return
-      console.log('userId at fetch time:', authStore.userId)
+      console.log('userId at fetch time:', authStore.user?.id)
 
       try {
         const { data } = await api.post(`/chat/get-messages`, {
-          userId: authStore.userId,
+          userId: authStore.user?.id,
         })
 
         console.log('raw data:', data) // 👈 what does this look like?
@@ -40,7 +40,7 @@ export const useChatStore = defineStore(
     const sendMessage = async (message) => {
       console.log('...')
       // checking
-      if (!message.trim() || !authStore.userId) return
+      if (!message.trim() || !authStore.user?.id) return
 
       messages.value.push({ role: 'user', content: message })
 
@@ -49,7 +49,7 @@ export const useChatStore = defineStore(
       try {
         const { data } = await api.post('/chat', {
           message,
-          userId: authStore.userId,
+          userId: authStore.user?.id,
         })
         messages.value.push({ role: 'ai', content: data.reply })
       } catch (error) {
