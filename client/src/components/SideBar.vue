@@ -52,7 +52,6 @@ const handeLogout = async () => {
             v-if="props.isOpen"
             class="font-display font-extralight tracking-[6px] text-text-primary text-base"
           >
-            <orion-logo width="100px" />
           </span>
         </transition>
       </button>
@@ -75,11 +74,42 @@ const handeLogout = async () => {
         </p>
       </transition>
 
+      <!-- actions sections -->
+      <div
+        class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
+      >
+        <span class="text-sm min-w-5 flex items-center justify-center">
+          <i class="fa-solid fa-plus"></i>
+        </span>
+        <transition
+          enter-active-class="transition-opacity duration-150 ease-in"
+          leave-active-class="transition-opacity duration-150 ease-in"
+          enter-from-class="opacity-0"
+          leave-to-class="opacity-0"
+        >
+          <span v-if="props.isOpen" class="whitespace-nowrap text-sm">New Chat</span>
+        </transition>
+      </div>
+
       <!-- TODO: should add overflow + style the chat title element -->
-      <div>
-        <div class="p-4" v-for="chat in chats" :key="chat.id">
-          {{ chat.title }}
-        </div>
+      <div class="flex flex-col gap-0.5 overflow-y-auto">
+        <RouterLink
+          v-for="chat in chats"
+          :key="chat.id"
+          :to="{ name: 'Chat', params: { id: chat.id } }"
+          class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
+        >
+          <transition
+            enter-active-class="transition-opacity duration-150 ease-in"
+            leave-active-class="transition-opacity duration-150 ease-in"
+            enter-from-class="opacity-0"
+            leave-to-class="opacity-0"
+          >
+            <span v-if="props.isOpen" class="whitespace-nowrap text-sm truncate">
+              {{ chat.title }}
+            </span>
+          </transition>
+        </RouterLink>
       </div>
 
       <!-- Divider -->
