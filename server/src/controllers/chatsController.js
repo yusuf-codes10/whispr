@@ -33,7 +33,7 @@ export const getAllChats = async (req, res, next) => {
 
 export const createNewChat = async (req, res, next) => {
   // grab the user id again, form the verifyToken(auth) mw
-  const userId =  req.user.id;
+  const userId = req.user.id;
 
   if (!userId) return next(createError(400, "user id is required!"));
 
@@ -57,12 +57,17 @@ export const createNewChat = async (req, res, next) => {
 
     const chat = rows[0];
 
-    // creating a channel for the 1on1 converstaion
-    const channel = chatClient.channel("messaging", `chat-${userId}`, {
-      name: "whispr",
-      created_by_id: "whisper_bot", // fixed
+    // ✅ Upsert the real user into Stream before using them
+    await chatClient.upsertUser({
+      id: String(userId),
+      name: req.user.name,
     });
 
+    // ✅ Use chat.id (DB id), not userId
+    const channel = chatClient.channel("messaging", `chat-${chat.id}`, {
+      name: "whispr",
+      created_by_id: String(userId), // ✅ must match an existing Stream user
+    });
     await channel.create();
 
     res.status(201).json({ chat });
@@ -73,20 +78,21 @@ export const createNewChat = async (req, res, next) => {
 };
 
 export const deleteChat = async (req, res, next) => {
-const userId = req.user.id;
+  const userId = req.user.id;
   const chatId = req.params.id;
 
   if (!chatId) return next(createError(400, "chat id is required"));
   try {
-    const {rows} = await pool.query("DELETE FROM chats WHERE chats.id = $1 AND chats.user_id = $2 RETURNING *", [
-      chatId,
-      userId
-    ]);
+    const { rows } = await pool.query(
+      "DELETE FROM chats WHERE chats.id = $1 AND chats.user_id = $2 RETURNING *",
+      [chatId, userId],
+    );
 
-    if (rows[0] === 0) return next(createError(404, "chat not found"));
+    // fixed rows bug
+    if (rows.length === 0) return next(createError(404, "chat not found"));
 
-    // delete the corresponding stream channel
-    const channel = chatClient.channel("messaging", `chat-${userId}`);
+    // ✅ Use chatId, not userId
+    const channel = chatClient.channel("messaging", `chat-${chatId}`);
     await channel.delete();
     res.status(201).json({ msg: "chat has been deleted" });
   } catch (error) {
@@ -100,10 +106,9 @@ export const sendMessage = async (req, res, next) => {
   // grab the chat content from user
   const { content } = req.body;
   const chatId = req.params.id;
-  const userId =  req.user.id;
+  const userId = req.user.id;
 
-  if (!content)
-    return next(createError(401, "message is required!"));
+  if (!content) return next(createError(401, "message is required!"));
 
   try {
     const channel = chatClient.channel("messaging", `chat-${chatId}`);
