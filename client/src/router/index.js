@@ -1,11 +1,11 @@
 import AuthCallbackView from '@/views/AuthCallbackView.vue'
 import ChatView from '@/views/ChatView.vue'
 import HomeView from '@/views/HomeView.vue'
-import NewChatView from '@/views/NewChatView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
+import ChatDetailsView from '@/views/ChatDetailsView.vue'
 
 const routes = [
   {
@@ -31,9 +31,9 @@ const routes = [
     component: ChatView,
   },
   {
-    path: '/new-chat',
-    name: 'NewChat',
-    component: NewChatView,
+    path: '/chat/:id',
+    name: 'ChatDetails',
+    component: ChatDetailsView,
   },
   // for google ouath
   {
