@@ -49,20 +49,20 @@ export const handleGoogleCallback = async (req, res, next) => {
     // 1. Get user info from Google
     const { sub: google_id, email, name, picture } = ticket.getPayload();
 
-    // 2. Check/create in Stream using google_id
-    const userResponse = await chatClient.queryUsers({
-      id: { $eq: google_id },
-    });
+    // // 2. Check/create in Stream using google_id
+    // const userResponse = await chatClient.queryUsers({
+    //   id: { $eq: google_id },
+    // });
 
-    if (!userResponse.users.length) {
-      // Add new user to stream
-      await chatClient.upsertUser({
-        id: google_id,
-        name: name,
-        email: email,
-        role: "user",
-      });
-    }
+    // if (!userResponse.users.length) {
+    //   // Add new user to stream
+    //   await chatClient.upsertUser({
+    //     id: google_id,
+    //     name: name,
+    //     email: email,
+    //     role: "user",
+    //   });
+    // }
 
     // 3. Check/create in your DB
     let user = await pool.query("SELECT * FROM users WHERE google_id = $1", [
@@ -113,7 +113,7 @@ export const handleGoogleCallback = async (req, res, next) => {
 
     res.json({ message: "logged in" });
   } catch (error) {
-    console.log("failed to sign user in", error);
+    console.log("failed to sign user in", error.message);
     next(createError(500, "INTERNAL SEVER ERROR"));
   }
 };

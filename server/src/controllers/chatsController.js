@@ -43,13 +43,13 @@ export const createNewChat = async (req, res, next) => {
     // if (!message) return next(createError(400, "message is required!"));
 
     // Verify user exists
-    const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
+    // const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
 
-    if (!userResponse.users.length)
-      return next(createError(404, "user not found. Please register first"));
+    // if (!userResponse.users.length)
+    //   return next(createError(404, "user not found. Please register first"));
 
     // generate the title
-    const title = await generateChatTitle(message);
+    const title = await generateChatTitle(groq, message);
     const { rows } = await pool.query(
       "INSERT INTO chats (title, user_id) VALUES ($1, $2) RETURNING *",
       [title, userId],

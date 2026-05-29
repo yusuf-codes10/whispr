@@ -1,4 +1,4 @@
-const generateChatTitle = async (message) => {
+const generateChatTitle = async (groq, message) => {
     const prompt =
       "Extract a title out of this, 3-5 words, significant title: ";
     // send a message to the groq
