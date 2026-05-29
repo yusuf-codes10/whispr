@@ -105,7 +105,7 @@ export const sendMessage = async (req, res, next) => {
   try {
     const channel = chatClient.channel("messaging", `chat-${chatId}`);
 
-    await sendMessageUtil(groq, pool, channel, content, chatId);
+    const whisprMessage = await sendMessageUtil(groq, pool, channel, content, userId, chatId);
 
 
     res.status(201).json({ msg: whisprMessage });

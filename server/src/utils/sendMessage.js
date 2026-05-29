@@ -1,4 +1,4 @@
-const sendMessageUtil = async(groq, pool, channel, content, chatId) => {
+const sendMessageUtil = async(groq, pool, channel, content, userId, chatId) => {
     await pool.query(
       "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
       ["user", content, chatId],
