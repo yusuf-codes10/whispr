@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, nextTick, watch } from 'vue'
+import { onMounted, nextTick, watch, ref } from 'vue'
 // import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
@@ -11,6 +11,7 @@ import { useSideStore } from '@/stores/sideStore'
 // const userStore = useUserStore()
 const chatStore = useChatStore()
 const sideStore = useSideStore()
+const chats = ref([])
 // const router = useRouter()
 
 // check if user is logged in
@@ -42,8 +43,12 @@ const formatMessage = (text) => {
     .replace(/<\/li>$/, '</li></ul>') // Close the `<ul>`
 }
 
-onMounted(() => {
-  chatStore.fetchChatMessages().then(() => scrollToBottom())
+onMounted(async () => {
+  chats.value = await chatStore.fetchChats()
+  console.log(
+    'chats: ',
+    chats.value.map((chat) => chat.title)
+  )
 })
 
 watch(

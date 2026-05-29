@@ -10,25 +10,24 @@ export const useChatStore = defineStore('chat', () => {
   const authStore = useAuthStore()
 
   // * actions
-  const fetchChatMessages = async () => {
+  const fetchChats = async () => {
     // if (!userStore.userId) return
     console.log('userId at fetch time:', authStore.user?.id)
 
     try {
-      const { data } = await api.post(`/chats`, {
-        userId: authStore.user?.id,
-      })
+      const { data } = await api.get(`/chats`)
 
       console.log('raw data:', data) // 👈 what does this look like?
       console.log('messages:', data.chat) // 👈 is this an array?
 
-      messages.value = data.messages
-        .flatMap((msg) => [
-          { role: 'user', content: msg.message },
-          { role: 'ai', content: msg.reply },
-        ])
-        .filter((msg) => msg.content) // drops any entry where content is empty or null
-      console.log('messages: ', messages.value)
+      // messages.value = data.messages
+      //   .flatMap((msg) => [
+      //     { role: 'user', content: msg.message },
+      //     { role: 'ai', content: msg.reply },
+      //   ])
+      //   .filter((msg) => msg.content) // drops any entry where content is empty or null
+      // console.log('messages: ', messages.value)
+      return data.messages
     } catch (error) {
       console.log('fetching chat error', error)
     }
@@ -60,5 +59,5 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
-  return { messages, isLoading, fetchChatMessages, sendMessage }
+  return { messages, isLoading, fetchChats, sendMessage }
 })
