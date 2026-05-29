@@ -5,6 +5,7 @@ import NewChatView from '@/views/NewChatView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore'
 
 const routes = [
   {
@@ -47,4 +48,11 @@ const router = createRouter({
   routes,
 })
 
+// runs before every route, guarantees user is resolved before any component mounts
+router.beforeEach(async () => {
+  const authStore = useAuthStore()
+  if (authStore.user === null) {
+    await authStore.fetchUser()
+  }
+})
 export default router

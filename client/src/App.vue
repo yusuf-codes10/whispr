@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted } from 'vue'
-import { useAuthStore } from '@/stores/authStore.js'
+// import { onMounted } from 'vue'
+// import { useAuthStore } from '@/stores/authStore.js'
 
-const authStore = useAuthStore()
-onMounted(() => authStore.fetchUser())
+// const authStore = useAuthStore()
+// onMounted(() => authStore.fetchUser())
 </script>
 
 <template>
