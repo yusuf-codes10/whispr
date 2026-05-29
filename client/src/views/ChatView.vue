@@ -5,12 +5,14 @@ import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
 // import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
+import { useAuthStore } from '@/stores/authStore'
 import SideBar from '@/components/SideBar.vue'
 import { useSideStore } from '@/stores/sideStore'
 
 // const userStore = useUserStore()
 const chatStore = useChatStore()
 const sideStore = useSideStore()
+const authStore = useAuthStore()
 const chats = ref([])
 // const router = useRouter()
 
@@ -62,10 +64,16 @@ watch(
     <!-- <NavBar /> -->
     <SideBar @toggle="sideStore.toggle" :chats="chats" :isOpen="sideStore.isOpen" />
 
-    <!-- char -->
+    <!-- chat -->
     <div class="flex flex-col flex-1">
-      <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
-        <div
+      <div
+        id="chat-container"
+        class="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center"
+      >
+        Hello there {{ authStore.user?.name }}
+        <ChatInput @send="chatStore.sendMessage" />
+
+        <!-- <div
           v-for="(msg, index) in chatStore.messages"
           :key="index"
           class="flex items-start"
@@ -81,7 +89,7 @@ watch(
           <div class="bg-gray-700 text-white px-4 py-2 rounded-lg">
             <span class="animate-pulse">AI is thinking...</span>
           </div>
-        </div>
+        </div> -->
       </div>
       <ChatInput @send="chatStore.sendMessage" />
     </div>
