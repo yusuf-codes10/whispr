@@ -59,5 +59,18 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
-  return { messages, isLoading, fetchChats, sendMessage }
+  const createChat = async (message) => {
+    if (!message) return console.log('message is empty!')
+    try {
+      const { data } = await api.post('/chats', {
+        message: message,
+      })
+      console.log(data)
+      return data
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  return { messages, isLoading, fetchChats, sendMessage, createChat }
 })
