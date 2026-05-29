@@ -40,14 +40,6 @@ export const createNewChat = async (req, res, next) => {
   try {
     const message = req.body.message;
 
-    // if (!message) return next(createError(400, "message is required!"));
-
-    // Verify user exists
-    // const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
-
-    // if (!userResponse.users.length)
-    //   return next(createError(404, "user not found. Please register first"));
-
     // generate the title
     const title = await generateChatTitle(groq, message);
     const { rows } = await pool.query(
@@ -101,7 +93,6 @@ export const deleteChat = async (req, res, next) => {
   }
 };
 
-// TODO: POST /chats/:id/messages would be a better RESTFUL design
 export const sendMessage = async (req, res, next) => {
   // grab the chat content from user
   const { content } = req.body;
