@@ -15,7 +15,7 @@ export const useChatStore = defineStore('chat', () => {
     console.log('userId at fetch time:', authStore.user?.id)
 
     try {
-      const { data } = await api.post(`/chat/get-messages`, {
+      const { data } = await api.post(`/chats`, {
         userId: authStore.user?.id,
       })
 
