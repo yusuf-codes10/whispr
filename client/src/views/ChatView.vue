@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, nextTick, watch } from 'vue'
+import { nextTick, watch } from 'vue'
 // import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
@@ -39,9 +39,9 @@ const formatMessage = (text) => {
     .replace(/<\/li>$/, '</li></ul>') // Close the `<ul>`
 }
 
-onMounted(() => {
-  chatStore.fetchChatMessages().then(() => scrollToBottom())
-})
+// onMounted(() => {
+//   chatStore.fetchChatMessages().then(() => scrollToBottom())
+// })
 
 watch(
   () => chatStore.messages.length,
