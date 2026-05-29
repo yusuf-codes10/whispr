@@ -9,14 +9,8 @@ import handleError from './src/middlewares/handleError.js';
 import catchAll from './src/middlewares/catchAll.js';
 import logger from './src/middlewares/logger.js';
 
-// import chatRouter from './src/routes/chat.route.js';
 import chatsRouter from './src/routes/chats.route.js';
-// import messagesRouter from './src/routes/messages.route.js';
 import googleOauthRouter from './src/routes/signup.route.js';
-
-import { StreamChat } from 'stream-chat';
-
-import Groq from 'groq-sdk';
 
 const port = process.env.PORT || 5100;
 
@@ -31,22 +25,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-// Initialize Stream Client
-const chatClient = StreamChat.getInstance(
-  process.env.STREAM_API_KEY,
-  process.env.STREAM_API_SECRET
-);
-
-// Groq initializer
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
-// register user with streamchat
-// app.post();
-// google auth
 app.use('/auth', googleOauthRouter);
 app.use('/chats', chatsRouter);
-// app.use('/chat', chatRouter);
-// app.use('/messages', messagesRouter);
 
 // handle errors
 app.use(catchAll);
