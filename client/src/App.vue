@@ -1,8 +1,11 @@
 <script setup>
-import NavBar from './components/NavBar.vue'
+import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/authStore.js'
+
+const authStore = useAuthStore()
+onMounted(() => authStore.fetchUser())
 </script>
 
 <template>
-  <NavBar />
   <RouterView />
 </template>
