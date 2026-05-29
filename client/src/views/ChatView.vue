@@ -1,19 +1,19 @@
 <script setup>
 import { onMounted, nextTick, watch } from 'vue'
-import { useUserStore } from '@/stores/userStore'
+// import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 const chatStore = useChatStore()
-const router = useRouter()
+// const router = useRouter()
 
 // check if user is logged in
-if (!userStore.userId) {
-  router.push('/')
-}
+// if (!userStore.userId) {
+//   router.push('/')
+// }
 
 // auto scrool to bottom
 const scrollToBottom = () => {
