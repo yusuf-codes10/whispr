@@ -23,7 +23,7 @@ export const getGoogleAuthUrl = (req, res) => {
   const url = client.generateAuthUrl({
     access_type: "offline",
     scope: ["openid", "email", "profile"],
-    prompt: 'select_account'  // ← forces account picker every time
+    prompt: "select_account", // ← forces account picker every time
   });
   res.json({ url });
 };
@@ -94,10 +94,10 @@ export const handleGoogleCallback = async (req, res, next) => {
     );
 
     res.cookie("token", token, {
-      httpOnly: true, // JS can't access it — XSS protection
-      secure: process.env.NODE_ENV === "production", // HTTPS only in prod
-      sameSite: "lax", // CSRF protection
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none", // ← fix
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.json({ message: "logged in" });
