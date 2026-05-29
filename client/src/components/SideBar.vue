@@ -125,11 +125,14 @@ const handeLogout = async () => {
     <div class="mt-auto border-t border-bg-border px-2 py-2 flex flex-col gap-0.5">
       <!-- User row -->
       <div class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg">
-        <span
-          class="min-w-5 w-7 h-7 rounded-full bg-bg-raised border border-bg-border flex items-center justify-center text-[11px] font-medium text-accent shrink-0"
-        >
-          {{ authStore.user?.username?.slice(0, 2).toUpperCase() }}
-        </span>
+        <div class="w-7 h-7 rounded-full overflow-hidden shrink-0 flex-none">
+          <img
+            :src="authStore.user?.avatar"
+            :alt="authStore.user?.name"
+            class="w-full h-full object-cover block"
+            referrerpolicy="no-referrer"
+          />
+        </div>
         <transition
           enter-active-class="transition-opacity duration-150 ease-in"
           leave-active-class="transition-opacity duration-150 ease-in"
@@ -138,7 +141,7 @@ const handeLogout = async () => {
         >
           <div v-if="props.isOpen" class="flex flex-col min-w-0">
             <span class="text-xs font-medium text-text-primary truncate">{{
-              authStore.user?.username
+              authStore.user?.name
             }}</span>
             <span class="text-[11px] text-text-muted">Pro plan</span>
           </div>
