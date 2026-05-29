@@ -5,13 +5,13 @@ import {getAllChats, createNewChat, deleteChat, sendMessage} from '../controller
 const router = express.Router();
 
 // get all chats by user
-router.get('/', verifyToken, getAllChats);
+router.get('/', getAllChats);
 
 // create a chat
 router.post('/', createNewChat);
 
 // delete a chat
-router.delete('/:id', verifyToken, deleteChat);
+router.delete('/:id',  deleteChat);
 
 // send a message
 // send a message

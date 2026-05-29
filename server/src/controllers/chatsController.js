@@ -33,7 +33,7 @@ export const getAllChats = async (req, res, next) => {
 
 export const createNewChat = async (req, res, next) => {
   // grab the user id again, form the verifyToken(auth) mw
-  const userId = 1;
+  const userId =  req.user.id;
 
   if (!userId) return next(createError(400, "user id is required!"));
 
@@ -78,15 +78,15 @@ const userId = req.user.id;
 
   if (!chatId) return next(createError(400, "chat id is required"));
   try {
-    await pool.query("DELETE FROM chats WHERE chats.id = $1 AND chats.user_id = $2 RETURNING *", [
+    const {rows} = await pool.query("DELETE FROM chats WHERE chats.id = $1 AND chats.user_id = $2 RETURNING *", [
       chatId,
       userId
     ]);
 
-    if (!rows.length) return next(createError(404, "chat not found"));
+    if (rows[0] === 0) return next(createError(404, "chat not found"));
 
     // delete the corresponding stream channel
-    const channel = chatClient.channel("messaging", `chat-${chatId}`);
+    const channel = chatClient.channel("messaging", `chat-${userId}`);
     await channel.delete();
     res.status(201).json({ msg: "chat has been deleted" });
   } catch (error) {
@@ -100,7 +100,7 @@ export const sendMessage = async (req, res, next) => {
   // grab the chat content from user
   const { content } = req.body;
   const chatId = req.params.id;
-  const userId = 1;
+  const userId =  req.user.id;
 
   if (!content)
     return next(createError(401, "message is required!"));
@@ -113,7 +113,8 @@ export const sendMessage = async (req, res, next) => {
       ["user", content, chatId],
     );
 
-    // send through Stream (for realtime delivery to the frontend)
+    // send through Stream (for realtime de
+    // livery to the frontend)
     await channel.sendMessage({ text: content, user_id: String(userId) });
 
     // send a message to the groq
