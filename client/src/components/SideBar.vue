@@ -10,10 +10,12 @@ const props = defineProps({
   isOpen: {
     type: Boolean,
   },
+  chats: {
+    type: Array,
+  },
 })
 const emit = defineEmits(['toggle'])
 
-const navItems = []
 const logoutItem = { name: 'Log out', icon: 'fa-arrow-right-from-bracket' }
 
 const handeLogout = async () => {
@@ -73,28 +75,12 @@ const handeLogout = async () => {
         </p>
       </transition>
 
-      <ul class="flex flex-col gap-0.5">
-        <li v-for="item in navItems" :key="item.name">
-          <RouterLink
-            :to="{ name: item.router }"
-            class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
-          >
-            <span class="text-sm min-w-5 flex items-center justify-center">
-              <i :class="item.icon" class="fa-solid"></i>
-            </span>
-            <transition
-              enter-active-class="transition-opacity duration-150 ease-in"
-              leave-active-class="transition-opacity duration-150 ease-in"
-              enter-from-class="opacity-0"
-              leave-to-class="opacity-0"
-            >
-              <span v-if="props.isOpen" class="whitespace-nowrap text-sm">
-                {{ item.name }}
-              </span>
-            </transition>
-          </RouterLink>
-        </li>
-      </ul>
+      <!-- TODO: should add overflow + style the chat title element -->
+      <div>
+        <div class="p-4" v-for="chat in chats" :key="chat.id">
+          {{ chat.title }}
+        </div>
+      </div>
 
       <!-- Divider -->
       <!-- <hr class="border-bg-border my-2" /> -->

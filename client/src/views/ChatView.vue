@@ -60,7 +60,7 @@ watch(
 <template>
   <div class="h-screen bg-background flex flex-col">
     <!-- <NavBar /> -->
-    <SideBar @toggle="sideStore.toggle" :isOpen="sideStore.isOpen" />
+    <SideBar @toggle="sideStore.toggle" :chats="chats" :isOpen="sideStore.isOpen" />
 
     <!-- char -->
     <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
