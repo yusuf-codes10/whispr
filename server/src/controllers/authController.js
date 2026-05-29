@@ -86,6 +86,7 @@ export const handleGoogleCallback = async (req, res, next) => {
     const token = jwt.sign(
       {
         id: user.rows[0].user_id,
+        googleId: user.rows[0].google_id, // store google id too
         name: user.rows[0].name,
         avatar: user.rows[0].avatar_url,
       },

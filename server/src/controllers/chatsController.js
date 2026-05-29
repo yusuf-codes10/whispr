@@ -40,7 +40,7 @@ export const createNewChat = async (req, res, next) => {
   try {
     const message = req.body.message;
 
-    if (!message) return next(createError(400, "message is required!"));
+    // if (!message) return next(createError(400, "message is required!"));
 
     // Verify user exists
     const userResponse = await chatClient.queryUsers({ id: { $eq: userId } });
