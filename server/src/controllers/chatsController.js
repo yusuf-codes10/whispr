@@ -100,7 +100,7 @@ export const sendMessage = async (req, res, next) => {
   // grab the chat content from user
   const { content } = req.body;
   const chatId = req.params.id;
-  const userId = req.user.id;
+  const userId = 1;
 
   if (!content)
     return next(createError(401, "message is required!"));
@@ -114,7 +114,7 @@ export const sendMessage = async (req, res, next) => {
     );
 
     // send through Stream (for realtime delivery to the frontend)
-    await channel.sendMessage({ text: content, user_id: userId });
+    await channel.sendMessage({ text: content, user_id: String(userId) });
 
     // send a message to the groq
     const response = await groq.chat.completions.create({
