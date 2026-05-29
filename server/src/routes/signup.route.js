@@ -12,7 +12,7 @@ router.post('/google/callback', handleGoogleCallback);
 
 router.post('/logout', logout);
 
-router.get('/me', verifyToken, () => {
+router.get('/me', verifyToken, (req, res) => {
     res.status(200).json({ user: req.user });
 });
 
