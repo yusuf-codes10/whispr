@@ -3,11 +3,14 @@ import { onMounted, nextTick, watch } from 'vue'
 // import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
-import NavBar from '@/components/NavBar.vue'
+// import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
+import SideBar from '@/components/SideBar.vue'
+import { useSideStore } from '@/stores/sideStore'
 
 // const userStore = useUserStore()
 const chatStore = useChatStore()
+const sideStore = useSideStore()
 // const router = useRouter()
 
 // check if user is logged in
@@ -51,7 +54,8 @@ watch(
 
 <template>
   <div class="h-screen bg-background flex flex-col">
-    <NavBar />
+    <!-- <NavBar /> -->
+    <SideBar @toggle="sideStore.toggle" :isOpen="sideStore.isOpen" />
 
     <!-- char -->
     <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
