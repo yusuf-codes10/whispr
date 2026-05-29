@@ -1,7 +1,7 @@
 import createError from "../utils/createError.js";
 import generateChatTitle from "../utils/generateChatMessage.js";
 import { StreamChat } from "stream-chat";
-import sendMessage from "../utils/sendMessage.js";
+import sendMessageUtil from "../utils/sendMessage.js";
 import pool from "../db/pool.js";
 import Groq from "groq-sdk";
 
@@ -105,7 +105,7 @@ export const sendMessage = async (req, res, next) => {
   try {
     const channel = chatClient.channel("messaging", `chat-${chatId}`);
 
-    await sendMessage(groq, pool, channel, content, chatId);
+    await sendMessageUtil(groq, pool, channel, content, chatId);
 
 
     res.status(201).json({ msg: whisprMessage });

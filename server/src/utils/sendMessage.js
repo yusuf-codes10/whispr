@@ -1,4 +1,4 @@
-const sendMessage = async(groq, pool, channel, content, chatId) => {
+const sendMessageUtil = async(groq, pool, channel, content, chatId) => {
     await pool.query(
       "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
       ["user", content, chatId],
@@ -25,7 +25,7 @@ const sendMessage = async(groq, pool, channel, content, chatId) => {
     // send AI response through Stream
     await channel.sendMessage({ text: whisprMessage, user_id: "whisper_bot" });
 
-
+    return whisprMessage;
 }
 
-export default sendMessage;
+export default sendMessageUtil;
