@@ -103,7 +103,7 @@ const handeLogout = async () => {
           :to="{ name: 'ChatDetails', params: { id: chat.id } }"
           :class="[
             'flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full transition-colors',
-            isSelected.value === chat.id
+            isSelected === chat.id
               ? 'bg-card text-text-primary'
               : 'text-text-secondary hover:bg-card hover:text-text-primary',
           ]"
