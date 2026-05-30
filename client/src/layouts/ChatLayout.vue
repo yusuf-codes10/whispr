@@ -19,8 +19,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="h-screen flex">
     <SideBar @toggle="sideStore.toggle" :chats="chats" :isOpen="sideStore.isOpen" />
-    <RouterView />
+    <RouterView class="flex-1" />
   </div>
 </template>
