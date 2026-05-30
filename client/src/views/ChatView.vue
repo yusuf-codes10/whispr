@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, nextTick, watch, ref } from 'vue'
+import { nextTick, watch } from 'vue'
 // import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores/authStore'
 // const userStore = useUserStore()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
-const chats = ref([])
+// const chats = ref([])
 // const router = useRouter()
 
 // check if user is logged in
@@ -27,28 +27,28 @@ const scrollToBottom = () => {
 }
 
 // Format message
-const formatMessage = (text) => {
-  if (!text) return ''
+// const formatMessage = (text) => {
+//   if (!text) return ''
 
-  return text
-    .replace(/\n/g, '<br>') // Preserve line breaks
-    .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Bold text
-    .replace(/\*(.*?)\*/g, '<i>$1</i>') // Italic text
-    .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
-    .replace(/(?:^|\n)- (.*?)(?:\n|$)/g, '<li>$1</li>') // Bullet points
-    .replace(/(?:^|\n)(\d+)\. (.*?)(?:\n|$)/g, '<li>$1. $2</li>') // Numbered lists
-    .replace(/<\/li>\n<li>/g, '</li><li>') // Ensure list continuity
-    .replace(/<li>/, '<ul><li>') // Wrap in `<ul>`
-    .replace(/<\/li>$/, '</li></ul>') // Close the `<ul>`
-}
+//   return text
+//     .replace(/\n/g, '<br>') // Preserve line breaks
+//     .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Bold text
+//     .replace(/\*(.*?)\*/g, '<i>$1</i>') // Italic text
+//     .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
+//     .replace(/(?:^|\n)- (.*?)(?:\n|$)/g, '<li>$1</li>') // Bullet points
+//     .replace(/(?:^|\n)(\d+)\. (.*?)(?:\n|$)/g, '<li>$1. $2</li>') // Numbered lists
+//     .replace(/<\/li>\n<li>/g, '</li><li>') // Ensure list continuity
+//     .replace(/<li>/, '<ul><li>') // Wrap in `<ul>`
+//     .replace(/<\/li>$/, '</li></ul>') // Close the `<ul>`
+// }
 
-onMounted(async () => {
-  chats.value = await chatStore.fetchChats()
-  console.log(
-    'chats: ',
-    chats.value.map((chat) => chat.title)
-  )
-})
+// onMounted(async () => {
+//   chats.value = await chatStore.fetchChats()
+//   console.log(
+//     'chats: ',
+//     chats.value.map((chat) => chat.title)
+//   )
+// })
 
 watch(
   () => chatStore.messages.length,
