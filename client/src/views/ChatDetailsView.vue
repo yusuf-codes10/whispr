@@ -1,21 +1,11 @@
 <script setup>
 import { nextTick, watch } from 'vue'
-// import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
-// import { useRouter } from 'vue-router'
-// import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
 import { useRoute } from 'vue-router'
 
-// const userStore = useUserStore()
 const chatStore = useChatStore()
 const route = useRoute()
-// const router = useRouter()
-
-// check if user is logged in
-// if (!userStore.userId) {
-//   router.push('/')
-// }
 
 // auto scrool to bottom
 const scrollToBottom = () => {
@@ -41,19 +31,6 @@ const formatMessage = (text) => {
     .replace(/<\/li>$/, '</li></ul>') // Close the `<ul>`
 }
 
-// onMounted(async () => {
-//   chats.value = await chatStore.fetchChats()
-//   console.log(
-//     'chats: ',
-//     chats.value.map((chat) => chat.title)
-//   )
-// })
-
-// onMounted(async () => {
-//   messages.value = await chatStore.fetchMessages()
-//   console.log('the messages are these', messages.value)
-// })
-
 watch(
   () => chatStore.messages.length,
   () => scrollToBottom()
@@ -64,8 +41,6 @@ watch(
   () => route.params.id,
   async () => {
     await chatStore.fetchMessages()
-    // console.log('the messages are these', chatStore.messages.messages)
-    // console.log('the 2nd msg: ', chatStore.messages)
   },
   { immediate: true }
 ) // ← missing | so the messages will load on refresh

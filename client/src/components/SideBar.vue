@@ -95,7 +95,6 @@ const handeLogout = async () => {
         </transition>
       </RouterLink>
 
-      <!-- TODO: should add overflow + style the chat title element -->
       <div class="flex flex-col gap-0.5 overflow-y-auto min-h-0">
         <RouterLink
           v-for="chat in chats"
