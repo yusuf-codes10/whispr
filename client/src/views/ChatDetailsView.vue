@@ -54,10 +54,10 @@ const formatMessage = (text) => {
 //   console.log('the messages are these', messages.value)
 // })
 
-watch(
-  () => chatStore.messages.messages.length,
-  () => scrollToBottom()
-)
+// watch(
+//   () => chatStore.messages.messages.length,
+//   () => scrollToBottom()
+// )
 
 // we need a watch
 watch(
@@ -76,10 +76,7 @@ watch(
 
     <!-- chat -->
     <div class="flex flex-col flex-1">
-      <div
-        id="chat-container"
-        class="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center flex-col gap-2"
-      >
+      <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
         <div
           v-for="msg in chatStore.messages.messages"
           :key="msg.id"
