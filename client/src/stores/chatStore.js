@@ -35,21 +35,20 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
-  const sendMessage = async (message) => {
+  const sendMessage = async (content) => {
     console.log('...')
     // checking
-    if (!message.trim() || !authStore.user?.id) return
+    if (!content.trim() || !authStore.user?.id) return
 
-    messages.value.push({ sender: 'user', content: message })
+    messages.value.push({ sender: 'user', content: content })
 
     isLoading.value = true
 
     try {
       const { data } = await api.post('/chats', {
-        message,
-        userId: authStore.user?.id,
+        content,
       })
-      messages.value.push({ role: 'ai', content: data.reply })
+      messages.value.push({ sender: 'assistant', content: data.msg })
     } catch (error) {
       console.error('Error sending message: ', error)
       messages.value.push({
