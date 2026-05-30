@@ -15,6 +15,6 @@ router.delete('/:id', verifyToken,  deleteChat);
 
 // send a message
 // send a message
-router.post('/:id/message', sendMessage);
+router.post('/:id/message', verifyToken, sendMessage);
 
 export default router;

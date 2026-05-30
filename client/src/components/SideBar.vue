@@ -96,7 +96,7 @@ const handeLogout = async () => {
         <RouterLink
           v-for="chat in chats"
           :key="chat.id"
-          :to="{ name: 'Chat', params: { id: chat.id } }"
+          :to="{ name: 'ChatDetails', params: { id: chat.id } }"
           class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
         >
           <transition
