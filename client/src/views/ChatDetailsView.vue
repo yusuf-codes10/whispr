@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, nextTick, watch, ref } from 'vue'
+import { nextTick, watch } from 'vue'
 // import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
@@ -9,7 +9,6 @@ import { useRoute } from 'vue-router'
 
 // const userStore = useUserStore()
 const chatStore = useChatStore()
-const messages = ref([])
 const route = useRoute()
 // const router = useRouter()
 
@@ -64,8 +63,8 @@ watch(
 watch(
   () => route.params.id,
   async () => {
-    messages.value = await chatStore.fetchMessages()
-    console.log('the messages are these', messages.value.messages)
+    await chatStore.fetchMessages()
+    console.log('the messages are these', chatStore.messages.messages)
   }
 )
 </script>
@@ -80,7 +79,7 @@ watch(
         id="chat-container"
         class="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center flex-col gap-2"
       >
-        <!-- <div
+        <div
           v-for="(msg, index) in chatStore.messages"
           :key="index"
           class="flex items-start"
@@ -96,7 +95,7 @@ watch(
           <div class="bg-gray-700 text-white px-4 py-2 rounded-lg">
             <span class="animate-pulse">AI is thinking...</span>
           </div>
-        </div> -->
+        </div>
       </div>
       <ChatInput @send="chatStore.sendMessage" />
     </div>
