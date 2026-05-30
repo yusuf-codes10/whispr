@@ -6,6 +6,7 @@ import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import ChatDetailsView from '@/views/ChatDetailsView.vue'
+import ChatLayout from '@/layouts/ChatLayout.vue'
 
 const routes = [
   {
@@ -27,13 +28,20 @@ const routes = [
   },
   {
     path: '/chat',
-    name: 'Chat',
-    component: ChatView,
-  },
-  {
-    path: '/chat/:id',
-    name: 'ChatDetails',
-    component: ChatDetailsView,
+    name: 'ChatLayout',
+    component: ChatLayout,
+    children: [
+      {
+        path: '',
+        name: 'Chat',
+        component: ChatView,
+      },
+      {
+        path: '/chat/:id',
+        name: 'ChatDetails',
+        component: ChatDetailsView,
+      },
+    ],
   },
   // for google ouath
   {
