@@ -125,9 +125,9 @@ export const getAllMessages = async (req, res, next) => {
   if(!chatId) return next(createError(404, 'Chat id is required'));
 
   try {
-    const {data} = await pool.query('SELECT * FROM messages AS msg WHERE msg.chat_id = $1', [chatId]);
+    const {rows} = await pool.query('SELECT * FROM messages AS msg WHERE msg.chat_id = $1', [chatId]);
 
-    res.status(200).json({messages: data});
+    res.status(200).json({messages: rows});
   } catch (error) {
     console.log('error fetching messages', error);
     next(error);
