@@ -2,7 +2,7 @@
 import { nextTick, watch } from 'vue'
 // import { useUserStore } from '@/stores/userStore'
 import { useChatStore } from '@/stores/chatStore'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 // import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
 import { useAuthStore } from '@/stores/authStore'
@@ -11,7 +11,7 @@ import { useAuthStore } from '@/stores/authStore'
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 // const chats = ref([])
-// const router = useRouter()
+const router = useRouter()
 
 // check if user is logged in
 // if (!userStore.userId) {
@@ -50,6 +50,11 @@ const scrollToBottom = () => {
 //   )
 // })
 
+const createChat = async (message) => {
+  const chat = await chatStore.createChat(message)
+  router.push(`/chat/${chat.id}`)
+}
+
 watch(
   () => chatStore.messages.length,
   () => scrollToBottom()
@@ -66,7 +71,7 @@ watch(
         class="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center flex-col gap-2"
       >
         Hello there {{ authStore.user?.name }}
-        <ChatInput @send="chatStore.createChat" />
+        <ChatInput @send="createChat" />
 
         <!-- <div
           v-for="(msg, index) in chatStore.messages"
