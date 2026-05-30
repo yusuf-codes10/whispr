@@ -5,10 +5,12 @@ import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
 // import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
+import { useRoute } from 'vue-router'
 
 // const userStore = useUserStore()
 const chatStore = useChatStore()
-const chats = ref([])
+const messages = ref([])
+const route = useRoute()
 // const router = useRouter()
 
 // check if user is logged in
@@ -40,17 +42,31 @@ const formatMessage = (text) => {
     .replace(/<\/li>$/, '</li></ul>') // Close the `<ul>`
 }
 
-onMounted(async () => {
-  chats.value = await chatStore.fetchChats()
-  console.log(
-    'chats: ',
-    chats.value.map((chat) => chat.title)
-  )
-})
+// onMounted(async () => {
+//   chats.value = await chatStore.fetchChats()
+//   console.log(
+//     'chats: ',
+//     chats.value.map((chat) => chat.title)
+//   )
+// })
+
+// onMounted(async () => {
+//   messages.value = await chatStore.fetchMessages()
+//   console.log('the messages are these', messages.value)
+// })
 
 watch(
   () => chatStore.messages.length,
   () => scrollToBottom()
+)
+
+// we need a watch
+watch(
+  () => route.params.id,
+  async () => {
+    messages.value = await chatStore.fetchMessages()
+    console.log('the messages are these', messages.value)
+  }
 )
 </script>
 
