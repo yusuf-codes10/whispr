@@ -75,7 +75,8 @@ const handeLogout = async () => {
       </transition>
 
       <!-- actions sections -->
-      <div
+      <RouterLink
+        :to="{ name: 'Chat' }"
         class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
       >
         <span class="text-sm min-w-5 flex items-center justify-center">
@@ -89,7 +90,7 @@ const handeLogout = async () => {
         >
           <span v-if="props.isOpen" class="whitespace-nowrap text-sm">New Chat</span>
         </transition>
-      </div>
+      </RouterLink>
 
       <!-- TODO: should add overflow + style the chat title element -->
       <div class="flex flex-col gap-0.5 overflow-y-auto min-h-0">
