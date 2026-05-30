@@ -37,6 +37,8 @@ export const useChatStore = defineStore('chat', () => {
 
   const sendMessage = async (content) => {
     console.log('...')
+
+    const chatId = route.params.id
     // checking
     if (!content.trim() || !authStore.user?.id) return
 
@@ -45,7 +47,7 @@ export const useChatStore = defineStore('chat', () => {
     isLoading.value = true
 
     try {
-      const { data } = await api.post('/chats', {
+      const { data } = await api.post(`${chatId}/message`, {
         content,
       })
       messages.value.push({ sender: 'assistant', content: data.msg })
