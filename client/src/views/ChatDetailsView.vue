@@ -5,14 +5,9 @@ import { useChatStore } from '@/stores/chatStore'
 // import { useRouter } from 'vue-router'
 // import NavBar from '@/components/NavBar.vue'
 import ChatInput from '@/components/ChatInput.vue'
-import { useAuthStore } from '@/stores/authStore'
-import SideBar from '@/components/SideBar.vue'
-import { useSideStore } from '@/stores/sideStore'
 
 // const userStore = useUserStore()
 const chatStore = useChatStore()
-const sideStore = useSideStore()
-const authStore = useAuthStore()
 const chats = ref([])
 // const router = useRouter()
 
@@ -62,7 +57,6 @@ watch(
 <template>
   <div class="h-screen bg-background flex">
     <!-- <NavBar /> -->
-    <SideBar @toggle="sideStore.toggle" :chats="chats" :isOpen="sideStore.isOpen" />
 
     <!-- chat -->
     <div class="flex flex-col flex-1">
