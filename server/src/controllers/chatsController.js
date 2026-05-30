@@ -108,6 +108,11 @@ export const sendMessage = async (req, res, next) => {
   try {
     const channel = chatClient.channel("messaging", `chat-${chatId}`);
 
+    // fetch last 10 messages
+    const context = await pool.query('SELECT * FROM messages AS msg WHERE msg.chat_id = $1 LIMIT 10', [chatId]);
+
+    
+
     const whisprMessage = await sendMessageUtil(groq, pool, channel, content, userId, chatId);
 
 
