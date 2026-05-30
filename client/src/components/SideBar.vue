@@ -1,6 +1,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
 
 const authStore = useAuthStore()
@@ -15,6 +16,8 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['toggle'])
+
+const isSelected = ref(null)
 
 const logoutItem = { name: 'Log out', icon: 'fa-arrow-right-from-bracket' }
 
@@ -98,7 +101,13 @@ const handeLogout = async () => {
           v-for="chat in chats"
           :key="chat.id"
           :to="{ name: 'ChatDetails', params: { id: chat.id } }"
-          class="flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full hover:bg-bg-raised text-text-secondary hover:text-text-primary transition-colors"
+          :class="[
+            'flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full transition-colors',
+            isSelected.value === chat.id
+              ? 'bg-card text-text-primary'
+              : 'text-text-secondary hover:bg-card hover:text-text-primary',
+          ]"
+          @click="isSelected = chat.id"
         >
           <transition
             enter-active-class="transition-opacity duration-150 ease-in"
