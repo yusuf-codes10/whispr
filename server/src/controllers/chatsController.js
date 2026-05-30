@@ -64,7 +64,7 @@ export const createNewChat = async (req, res, next) => {
     await channel.create();
 
     // send that first message too
-    await sendMessageUtil(groq, pool, channel, message, userId, chat.id);
+    await sendMessageUtil(groq, pool, channel, message, null, userId, chat.id);
 
     res.status(201).json({ chat });
   } catch (error) {

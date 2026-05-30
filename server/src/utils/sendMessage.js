@@ -2,7 +2,7 @@ const sendMessageUtil = async (groq, pool, channel, content, conversation, userI
   const groqMessages = conversation ?? [{ role: "user", content }];
 
   await pool.query(
-    "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
+    "INSERT INTO messages (role, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
     ["user", content, chatId]
   );
 
@@ -16,7 +16,7 @@ const sendMessageUtil = async (groq, pool, channel, content, conversation, userI
   const whisprMessage = response.choices[0].message.content;
 
   await pool.query(
-    "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
+    "INSERT INTO messages (role, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
     ["assistant", whisprMessage, chatId]
   );
 
