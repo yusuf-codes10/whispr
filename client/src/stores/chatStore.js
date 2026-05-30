@@ -45,7 +45,7 @@ export const useChatStore = defineStore('chat', () => {
     isLoading.value = true
 
     try {
-      const { data } = await api.post('/chat', {
+      const { data } = await api.post('/chats', {
         message,
         userId: authStore.user?.id,
       })
