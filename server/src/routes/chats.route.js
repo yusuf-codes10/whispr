@@ -8,14 +8,14 @@ const router = express.Router();
 router.get('/', verifyToken, getAllChats);
 
 // create a chat
-router.post('/', verifyToken, createNewChat);
+router.post('/', createNewChat);
 
 // delete a chat
 router.delete('/:id', verifyToken,  deleteChat);
 
 // send a message
 // send a message
-router.post('/:id/message', verifyToken, sendMessage);
+router.post('/:id/message', sendMessage);
 
 // get all message by chat id
 router.get('/:id/messages', getAllMessages);
