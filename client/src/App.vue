@@ -1,11 +1,10 @@
 <script setup>
-// import { onMounted } from 'vue'
-// import { useAuthStore } from '@/stores/authStore.js'
-
-// const authStore = useAuthStore()
-// onMounted(() => authStore.fetchUser())
 </script>
 
 <template>
   <RouterView />
 </template>
+
+<!-- TODO: a proper home page -->
+<!-- TODO: delete a chat -->
+<!-- TODO: a modal for the delete and update -->
