@@ -24,3 +24,5 @@ const sendMessageUtil = async (groq, pool, channel, content, conversation, userI
 
   return whisprMessage;
 };
+
+export default sendMessageUtil;

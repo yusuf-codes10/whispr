@@ -42,7 +42,7 @@ export const useChatStore = defineStore('chat', () => {
     // checking
     if (!content.trim() || !authStore.user?.id) return
 
-    messages.value.push({ sender: 'user', content: content })
+    messages.value.push({ role: 'user', content: content })
 
     isLoading.value = true
 
@@ -50,7 +50,7 @@ export const useChatStore = defineStore('chat', () => {
       const { data } = await api.post(`/chats/${chatId}/message`, {
         content,
       })
-      messages.value.push({ sender: 'assistant', content: data.msg })
+      messages.value.push({ role: 'assistant', content: data.msg })
     } catch (error) {
       console.error('Error sending message: ', error)
       messages.value.push({

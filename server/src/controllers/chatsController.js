@@ -113,15 +113,15 @@ export const sendMessage = async (req, res, next) => {
 
         // Format for Groq
     const conversation = context.rows.flatMap((chat) => [
-      { sender: "user", content: chat.content },
-      { sender: "assistant", content: chat.content },
+      { role: "user", content: chat.content },
+      { role: "assistant", content: chat.content },
     ]);
 
     // add the message to send
-    conversation.push({sender: 'user', content: content});
+    conversation.push({role: 'user', content: content});
 
 
-    const whisprMessage = await sendMessageUtil(groq, pool, channel, conversation, content, userId, chatId);
+    const whisprMessage = await sendMessageUtil(groq, pool, channel, content, conversation, userId, chatId);
 
 
     res.status(201).json({ msg: whisprMessage });
