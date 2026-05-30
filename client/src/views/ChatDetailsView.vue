@@ -65,8 +65,9 @@ watch(
   async () => {
     await chatStore.fetchMessages()
     console.log('the messages are these', chatStore.messages.messages)
-  }
-)
+  },
+  { immediate: true }
+) // ← missing | so the messages will load on refresh
 </script>
 
 <template>
