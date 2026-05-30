@@ -55,7 +55,7 @@ const formatMessage = (text) => {
 // })
 
 watch(
-  () => chatStore.messages.length,
+  () => chatStore.messages.messages.length,
   () => scrollToBottom()
 )
 
