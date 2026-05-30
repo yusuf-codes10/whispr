@@ -1,31 +1,26 @@
-const sendMessageUtil = async(groq, pool, channel, content, userId, chatId) => {
-    await pool.query(
-      "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
-      ["user", content, chatId],
-    );
+const sendMessageUtil = async (groq, pool, channel, content, conversation, userId, chatId) => {
+  const groqMessages = conversation ?? [{ role: "user", content }];
 
-    // send through Stream (for realtime de
-    // livery to the frontend)
-    await channel.sendMessage({ text: content, user_id: String(userId) });
+  await pool.query(
+    "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
+    ["user", content, chatId]
+  );
 
-    // send a message to the groq
-    const response = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile", // free and very capable
-      messages: [{ role: "user", content: content }],
-    });
+  await channel.sendMessage({ text: content, user_id: String(userId) }); // ✅ always a string
 
-    const whisprMessage = response.choices[0].message.content;
+  const response = await groq.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
+    messages: groqMessages, //  uses conversation context
+  });
 
-    // save AI response to db
-    await pool.query(
-      "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
-      ["assistant", whisprMessage, chatId],
-    );
+  const whisprMessage = response.choices[0].message.content;
 
-    // send AI response through Stream
-    await channel.sendMessage({ text: whisprMessage, user_id: "whisper_bot" });
+  await pool.query(
+    "INSERT INTO messages (sender, content, chat_id) VALUES ($1, $2, $3) RETURNING *",
+    ["assistant", whisprMessage, chatId]
+  );
 
-    return whisprMessage;
-}
+  await channel.sendMessage({ text: whisprMessage, user_id: "whisper_bot" });
 
-export default sendMessageUtil;
+  return whisprMessage;
+};
