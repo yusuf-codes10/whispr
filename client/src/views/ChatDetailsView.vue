@@ -65,7 +65,7 @@ watch(
   () => route.params.id,
   async () => {
     messages.value = await chatStore.fetchMessages()
-    console.log('the messages are these', messages.value)
+    console.log('the messages are these', messages.value.messages)
   }
 )
 </script>
