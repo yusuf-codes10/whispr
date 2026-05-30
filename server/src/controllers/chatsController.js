@@ -21,11 +21,11 @@ export const getAllChats = async (req, res, next) => {
   if (!userId) return next(createError(401, "User id is required"));
 
   try {
-    const chatHistory = await pool.query(
+    const {rows} = await pool.query(
       "SELECT * FROM chats WHERE chats.user_id = $1",
       [userId],
     );
-    res.status(200).json({ messages: chatHistory.rows });
+    res.status(200).json({ messages: rows });
   } catch (error) {
     console.log("failed getting user chats", error);
     next(error);
@@ -125,9 +125,9 @@ export const getAllMessages = async (req, res, next) => {
   if(!chatId) return next(createError(404, 'Chat id is required'));
 
   try {
-    const data = await pool.query('SELECT * FROM messages AS msg WHERE msg.chat_id = $1', [chatId]);
+    const {data} = await pool.query('SELECT * FROM messages AS msg WHERE msg.chat_id = $1', [chatId]);
 
-    res.status(200).json({messages: data.rows});
+    res.status(200).json({messages: data});
   } catch (error) {
     console.log('error fetching messages', error);
     next(error);
