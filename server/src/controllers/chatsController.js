@@ -111,9 +111,17 @@ export const sendMessage = async (req, res, next) => {
     // fetch last 10 messages
     const context = await pool.query('SELECT * FROM messages AS msg WHERE msg.chat_id = $1 LIMIT 10', [chatId]);
 
-    
+        // Format for Groq
+    const conversation = context.rows.flatMap((chat) => [
+      { sender: "user", content: chat.content },
+      { sender: "assistant", content: chat.content },
+    ]);
 
-    const whisprMessage = await sendMessageUtil(groq, pool, channel, content, userId, chatId);
+    // add the message to send
+    conversation.push({sender: 'user', content: content});
+
+
+    const whisprMessage = await sendMessageUtil(groq, pool, channel, conversation, userId, chatId);
 
 
     res.status(201).json({ msg: whisprMessage });
