@@ -70,9 +70,6 @@ watch(
         id="chat-container"
         class="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center flex-col gap-2"
       >
-        Hello there {{ authStore.user?.name }}
-        <!-- <ChatInput @send="chatStore.createChat" /> -->
-
         <!-- <div
           v-for="(msg, index) in chatStore.messages"
           :key="index"
