@@ -54,17 +54,18 @@ const formatMessage = (text) => {
 //   console.log('the messages are these', messages.value)
 // })
 
-// watch(
-//   () => chatStore.messages.messages.length,
-//   () => scrollToBottom()
-// )
+watch(
+  () => chatStore.messages.length,
+  () => scrollToBottom()
+)
 
 // we need a watch
 watch(
   () => route.params.id,
   async () => {
     await chatStore.fetchMessages()
-    console.log('the messages are these', chatStore.messages.messages)
+    // console.log('the messages are these', chatStore.messages.messages)
+    // console.log('the 2nd msg: ', chatStore.messages)
   },
   { immediate: true }
 ) // ← missing | so the messages will load on refresh
@@ -78,7 +79,7 @@ watch(
     <div class="flex flex-col flex-1">
       <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
         <div
-          v-for="msg in chatStore.messages.messages"
+          v-for="msg in chatStore.messages"
           :key="msg.id"
           class="flex items-start"
           :class="msg.sender === 'user' ? 'justify-end' : 'justify-start'"

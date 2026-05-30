@@ -40,7 +40,7 @@ export const useChatStore = defineStore('chat', () => {
     // checking
     if (!message.trim() || !authStore.user?.id) return
 
-    messages.value.push({ role: 'user', content: message })
+    messages.value.push({ sender: 'user', content: message })
 
     isLoading.value = true
 
@@ -78,7 +78,10 @@ export const useChatStore = defineStore('chat', () => {
     const chatId = route.params.id
     try {
       const response = await api.get(`/chats/${chatId}/messages`)
-      messages.value = response.data
+      console.log('response.data:', response.data)
+      console.log('response.data.messages:', response.data.messages)
+      messages.value = response.data.messages || []
+      console.log('messages.value after assignment:', messages.value)
     } catch (error) {
       console.log(error)
     }
