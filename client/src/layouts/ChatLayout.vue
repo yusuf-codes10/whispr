@@ -34,7 +34,7 @@ onMounted(async () => {
       @deleteChat="toggleModal"
     />
     <RouterView class="flex-1" />
-    <ModalWindow :isOpen="isModalOpen" title="Remove item">
+    <ModalWindow :isOpen="isModalOpen" title="Remove item" @close="toggleModal">
       <div class="bg-background p-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
     </ModalWindow>
   </div>
