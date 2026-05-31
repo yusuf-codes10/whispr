@@ -40,10 +40,12 @@ const handeLogout = async () => {
   router.push('/sign-up')
 }
 
+// add the listener when the component mounts
 onMounted(() => {
   document.addEventListener('click', closeDropDown)
 })
 
+// bug pervention: remove the listener when the sidebar is closed
 onUnmounted(() => {
   document.removeEventListener('click', closeDropDown)
 })
