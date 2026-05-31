@@ -132,7 +132,7 @@ const handeLogout = async () => {
           </transition>
           <i
             class="fa-solid fa-ellipsis-vertical opacity-0 group-hover:opacity-100 absolute top-2 right-1 cursor-pointer transition-opacity"
-            @click="toggleDropdown(chat.id)"
+            @click="(e) => toggleDropdown(e, chat.id)"
           ></i>
         </RouterLink>
       </div>
