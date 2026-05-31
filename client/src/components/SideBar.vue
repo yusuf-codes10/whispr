@@ -101,7 +101,7 @@ const handeLogout = async () => {
           :key="chat.id"
           :to="{ name: 'ChatDetails', params: { id: chat.id } }"
           :class="[
-            'flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full transition-colors',
+            'flex items-center gap-2.5 px-2.5 py-2 rounded-lg w-full transition-colors relative group',
             isSelected === chat.id
               ? 'bg-card text-text-primary'
               : 'text-text-secondary hover:bg-card hover:text-text-primary',
@@ -118,6 +118,9 @@ const handeLogout = async () => {
               {{ chat.title.replace(/"/g, '') }}
             </span>
           </transition>
+          <i
+            class="fa-solid fa-ellipsis-vertical opacity-0 group-hover:opacity-100 absolute top-2 right-1 cursor-pointer transition-opacity"
+          ></i>
         </RouterLink>
       </div>
     </div>
