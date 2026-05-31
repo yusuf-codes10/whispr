@@ -47,9 +47,9 @@ onMounted(async () => {
     </ModalWindow>
     <!-- delete modal -->
     <ModalWindow :isOpen="isDeleteOpen" title="Remove item" @close="toggleDelete">
-      <div>Are you sure you want to delete this chat?</div>
+      <div class="text">Are you sure you want to delete this chat?</div>
       <div>
-        <button>Yes</button>
+        <button @click="chatStore.deleteChat" class="button">Yes</button>
       </div>
     </ModalWindow>
   </div>
