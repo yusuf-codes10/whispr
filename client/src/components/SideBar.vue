@@ -133,8 +133,18 @@ onUnmounted(() => {
           @click="isSelected = chat.id"
         >
           <DropDownMenu :isOpen="openDropdownId === chat.id" ref="dropdownRef">
-            <div>Rename</div>
-            <div>Delete</div>
+            <div
+              class="flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-text-secondary hover:text-text-primary hover:bg-bg-raised cursor-pointer transition-colors"
+            >
+              <i class="fa-solid fa-pen text-xs"></i>
+              Rename
+            </div>
+            <div
+              class="flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-text-muted hover:text-danger hover:bg-red-500/10 cursor-pointer transition-colors"
+            >
+              <i class="fa-solid fa-trash-can text-xs"></i>
+              Delete
+            </div>
           </DropDownMenu>
           <transition
             enter-active-class="transition-opacity duration-150 ease-in"
