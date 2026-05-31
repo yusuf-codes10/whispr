@@ -28,7 +28,7 @@ onMounted(async () => {
   <div class="h-screen flex">
     <SideBar @toggle="sideStore.toggle" :chats="chats" :isOpen="sideStore.isOpen" />
     <RouterView class="flex-1" />
-    <ModalWindow :isOpen="isModalOpen" title="Remove item">
+    <ModalWindow :isOpen="isModalOpen" title="Remove item" @renameChat="toggleModal">
       <div class="bg-background p-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
     </ModalWindow>
   </div>

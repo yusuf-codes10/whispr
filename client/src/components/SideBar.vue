@@ -135,6 +135,7 @@ onUnmounted(() => {
           <DropDownMenu :isOpen="openDropdownId === chat.id" ref="dropdownRef">
             <div
               class="flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-text-secondary hover:text-text-primary hover:bg-bg-raised cursor-pointer transition-colors"
+              @click="emit('renameChat', chat.id)"
             >
               <i class="fa-solid fa-pen text-xs"></i>
               Rename
