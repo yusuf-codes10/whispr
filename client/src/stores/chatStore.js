@@ -100,3 +100,5 @@ export const useChatStore = defineStore('chat', () => {
 
   return { messages, isLoading, fetchChats, sendMessage, createChat, fetchMessages, deleteChat }
 })
+
+// TODO: add error ref and maybe loading ref if relevant
