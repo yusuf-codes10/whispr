@@ -116,7 +116,7 @@ const handeLogout = async () => {
           ]"
           @click="isSelected = chat.id"
         >
-          <DropDownMenu :isOpen="true">
+          <DropDownMenu :isOpen="openDropdownId === chat.id">
             <div>Rename</div>
             <div>Delete</div>
           </DropDownMenu>
@@ -132,7 +132,7 @@ const handeLogout = async () => {
           </transition>
           <i
             class="fa-solid fa-ellipsis-vertical opacity-0 group-hover:opacity-100 absolute top-2 right-1 cursor-pointer transition-opacity"
-            @click="isDropDownOpen = true"
+            @click="toggleDropdown(chat.id)"
           ></i>
         </RouterLink>
       </div>
