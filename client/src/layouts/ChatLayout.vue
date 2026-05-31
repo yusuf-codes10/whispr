@@ -11,8 +11,9 @@ const sideStore = useSideStore()
 const chats = ref([])
 const isModalOpen = ref(false)
 
-const toggleModal = () => {
+const toggleModal = (id) => {
   isModalOpen.value = !isModalOpen.value
+  console.log('this is the chat id: ', id)
 }
 
 onMounted(async () => {
@@ -35,7 +36,7 @@ onMounted(async () => {
     />
     <RouterView class="flex-1" />
     <ModalWindow :isOpen="isModalOpen" title="Remove item" @close="toggleModal">
-      <div class="bg-background p-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</div>
+      <div class="bg-background p-4"></div>
     </ModalWindow>
   </div>
 </template>
