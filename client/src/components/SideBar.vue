@@ -6,21 +6,6 @@ import whisprLogo from '@/assets/whispr.png'
 import DropDownMenu from './DropDownMenu.vue'
 import { onClickOutside } from '@vueuse/core'
 
-const authStore = useAuthStore()
-const router = useRouter()
-const openDropdownId = ref(null)
-const dropdownRef = ref(null)
-
-const toggleDropdown = (e, chatId) => {
-  e.preventDefault()
-  e.stopPropagation()
-  openDropdownId.value = openDropdownId.value === chatId ? null : chatId
-}
-
-onClickOutside(dropdownRef, () => {
-  openDropdownId.value = null
-})
-
 const props = defineProps({
   isOpen: {
     type: Boolean,
@@ -31,9 +16,24 @@ const props = defineProps({
 })
 const emit = defineEmits(['toggle'])
 
+const authStore = useAuthStore()
+const router = useRouter()
+const openDropdownId = ref(null)
+const dropdownRef = ref(null)
+
 const isSelected = ref(null)
 
 const logoutItem = { name: 'Log out', icon: 'fa-arrow-right-from-bracket' }
+
+const toggleDropdown = (e, chatId) => {
+  e.preventDefault()
+  e.stopPropagation()
+  openDropdownId.value = openDropdownId.value === chatId ? null : chatId
+}
+
+onClickOutside(dropdownRef, () => {
+  openDropdownId.value = null
+})
 
 const handeLogout = async () => {
   await authStore.logout()
