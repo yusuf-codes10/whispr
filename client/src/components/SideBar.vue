@@ -3,9 +3,17 @@ import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
+import DropDownMenu from './DropDownMenu.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const openDropdownId = ref(null)
+
+const toggleDropdown = (e, chatId) => {
+  e.preventDefault()
+  e.stopPropagation()
+  openDropdownId.value = openDropdownId.value === chatId ? null : chatId
+}
 
 const props = defineProps({
   isOpen: {
@@ -108,6 +116,10 @@ const handeLogout = async () => {
           ]"
           @click="isSelected = chat.id"
         >
+          <DropDownMenu :isOpen="true">
+            <div>Rename</div>
+            <div>Delete</div>
+          </DropDownMenu>
           <transition
             enter-active-class="transition-opacity duration-150 ease-in"
             leave-active-class="transition-opacity duration-150 ease-in"
@@ -120,6 +132,7 @@ const handeLogout = async () => {
           </transition>
           <i
             class="fa-solid fa-ellipsis-vertical opacity-0 group-hover:opacity-100 absolute top-2 right-1 cursor-pointer transition-opacity"
+            @click="isDropDownOpen = true"
           ></i>
         </RouterLink>
       </div>
