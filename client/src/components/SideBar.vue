@@ -14,7 +14,7 @@ const props = defineProps({
     type: Array,
   },
 })
-const emit = defineEmits(['toggle'])
+const emit = defineEmits(['toggle', 'renameChat', 'deleteChat'])
 
 const authStore = useAuthStore()
 const router = useRouter()
