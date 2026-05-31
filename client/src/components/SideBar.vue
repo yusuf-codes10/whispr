@@ -142,6 +142,7 @@ onUnmounted(() => {
             </div>
             <div
               class="flex items-center gap-2 px-2 py-1.5 rounded-md text-sm text-text-muted hover:text-danger hover:bg-red-500/10 cursor-pointer transition-colors"
+              @click="emit('deleteChat', chat.id)"
             >
               <i class="fa-solid fa-trash-can text-xs"></i>
               Delete

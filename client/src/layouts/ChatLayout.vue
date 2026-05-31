@@ -9,10 +9,16 @@ const chatStore = useChatStore()
 const sideStore = useSideStore()
 
 const chats = ref([])
-const isModalOpen = ref(false)
+const isRenameOpen = ref(false)
+const isDeleteOpen = ref(false)
 
-const toggleModal = (id) => {
-  isModalOpen.value = !isModalOpen.value
+const toggleRename = (id) => {
+  isRenameOpen.value = !isRenameOpen.value
+  console.log('this is the chat id: ', id)
+}
+
+const toggleDelete = (id) => {
+  isDeleteOpen.value = !isDeleteOpen.value
   console.log('this is the chat id: ', id)
 }
 
@@ -31,12 +37,20 @@ onMounted(async () => {
       @toggle="sideStore.toggle"
       :chats="chats"
       :isOpen="sideStore.isOpen"
-      @renameChat="toggleModal"
-      @deleteChat="toggleModal"
+      @renameChat="toggleRename"
+      @deleteChat="toggleDelete"
     />
     <RouterView class="flex-1" />
-    <ModalWindow :isOpen="isModalOpen" title="Remove item" @close="toggleModal">
+    <!-- rename modal -->
+    <ModalWindow :isOpen="isRenameOpen" title="Remove item" @close="toggleRename">
       <div class="bg-background p-4"></div>
+    </ModalWindow>
+    <!-- delete modal -->
+    <ModalWindow :isOpen="isDeleteOpen" title="Remove item" @close="toggleDelete">
+      <div>Are you sure you want to delete this chat?</div>
+      <div>
+        <button>Yes</button>
+      </div>
     </ModalWindow>
   </div>
 </template>
