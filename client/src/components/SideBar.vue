@@ -1,10 +1,10 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
 import DropDownMenu from './DropDownMenu.vue'
-import { onClickOutside } from '@vueuse/core'
+// import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
   isOpen: {
@@ -31,14 +31,22 @@ const toggleDropdown = (e, chatId) => {
   openDropdownId.value = openDropdownId.value === chatId ? null : chatId
 }
 
-onClickOutside(dropdownRef, () => {
+const closeDropDown = () => {
   openDropdownId.value = null
-})
+}
 
 const handeLogout = async () => {
   await authStore.logout()
   router.push('/sign-up')
 }
+
+onMounted(() => {
+  document.addEventListener('click', closeDropDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeDropDown)
+})
 </script>
 
 <template>
@@ -122,7 +130,7 @@ const handeLogout = async () => {
           ]"
           @click="isSelected = chat.id"
         >
-          <DropDownMenu :isOpen="openDropdownId === chat.id">
+          <DropDownMenu :isOpen="openDropdownId === chat.id" ref="dropdownRef">
             <div>Rename</div>
             <div>Delete</div>
           </DropDownMenu>
