@@ -194,10 +194,10 @@
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius);
   /* border-radius: calc(var(--radius) + 1rem); */
-border: none;
+/* border: none;
 cursor: pointer;
 transition: filter 0.2s ease;
-}
+} */
 
 .button:hover {
   filter: brightness(1.15);
@@ -222,7 +222,7 @@ transition: filter 0.2s ease;
   color: var(--primary-foreground);
 }
 
-*/ .text {
+.text {
   color: var(--foreground);
   font-family: var(--font-sans);
   font-size: 1rem;

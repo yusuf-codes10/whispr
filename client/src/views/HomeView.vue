@@ -53,8 +53,10 @@ import NavBar from '@/components/NavBar.vue'
       <p class="text-xs md:text-sm text-muted-foreground">
         Whispr is your always-on AI companion — precise, fast, and hauntingly intuitive.
       </p>
-      <div class="flex justify-between mt-8">
-        <button class="button">Start whispering</button>
+      <div class="flex flex-col md:flex-row justify-between mt-8 gap-2">
+        <RouterLink :to="{ name: 'SignUp' }">
+          <button class="button">Start whispering</button>
+        </RouterLink>
         <button class="ghost-button">See it in action</button>
       </div>
     </div>

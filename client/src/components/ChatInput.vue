@@ -20,6 +20,6 @@ const sendMessage = () => {
       type="text"
       class="flex-1 p-2 rounded-lg bg-secondary text-white focus:outline-none"
     />
-    <button @click="sendMessage" class="ml-2 px-4 py-2 bg-primary rounded-lg">Send</button>
+    <button @click="sendMessage" class="button">Send</button>
   </div>
 </template>
