@@ -9,6 +9,7 @@ const chatStore = useChatStore()
 const sideStore = useSideStore()
 
 const chats = ref([])
+const selectedChatId = ref(null)
 const isRenameOpen = ref(false)
 const isDeleteOpen = ref(false)
 
@@ -20,6 +21,11 @@ const toggleRename = (id) => {
 const toggleDelete = (id) => {
   isDeleteOpen.value = !isDeleteOpen.value
   console.log('this is the chat id: ', id)
+}
+
+const handleDelete = async () => {
+  await chatStore.deleteChat()
+  toggleDelete()
 }
 
 onMounted(async () => {
@@ -49,7 +55,7 @@ onMounted(async () => {
     <ModalWindow :isOpen="isDeleteOpen" title="Remove item" @close="toggleDelete">
       <div class="text">Are you sure you want to delete this chat?</div>
       <div>
-        <button @click="chatStore.deleteChat" class="button">Yes</button>
+        <button @click="handleDelete" class="button">Yes</button>
       </div>
     </ModalWindow>
   </div>
