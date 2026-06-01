@@ -4,7 +4,6 @@ import api from '@/services/api.js'
 import { ref } from 'vue'
 // import { onMounted } from 'vue'
 
-const email = ref('')
 const loading = ref(false)
 const error = ref(null)
 
@@ -37,18 +36,7 @@ const getGoogleUrl = async () => {
       </button>
 
       <hr />
-      <p class="text-center">OR</p>
 
-      <hr />
-      <input
-        type="email"
-        class="w-full my-4 bg-input text-foreground placeholder-muted-foreground border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none rounded px-3 py-2 text-sm transition-all radius"
-        placeholder="Email Adress"
-        v-model="email"
-      />
-      <button class="button w-full" @click="goToChat">
-        {{ loading ? 'Logging in...' : 'Continue' }}
-      </button>
       <p v-if="error" class="text-destructive text-center">{{ error }}</p>
     </div>
   </div>

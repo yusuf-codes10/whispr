@@ -1,7 +1,6 @@
 import AuthCallbackView from '@/views/AuthCallbackView.vue'
 import ChatView from '@/views/ChatView.vue'
 import HomeView from '@/views/HomeView.vue'
-import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
@@ -13,12 +12,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
-  },
-  // login
-  {
-    path: '/sign-in',
-    name: 'SignIn',
-    component: SignInView,
   },
   // register
   {
