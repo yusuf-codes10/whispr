@@ -30,7 +30,8 @@ export const useChatStore = defineStore('chat', () => {
       //   ])
       //   .filter((msg) => msg.content) // drops any entry where content is empty or null
       // console.log('messages: ', messages.value)
-      return data.messages
+      chats.value = data.messages
+      console.log('chats are', data.messages)
     } catch (error) {
       console.log('fetching chat error', error)
     }

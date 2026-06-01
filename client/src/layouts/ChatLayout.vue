@@ -8,7 +8,7 @@ import { ref, onMounted } from 'vue'
 const chatStore = useChatStore()
 const sideStore = useSideStore()
 
-const chats = ref([])
+const chats = chatStore.getChats
 const selectedDeletedId = ref(null)
 const selectedRenamedId = ref(null)
 const isRenameOpen = ref(false)
@@ -43,10 +43,10 @@ const handleRename = async () => {
 }
 
 onMounted(async () => {
-  chats.value = await chatStore.fetchChats()
+  await chatStore.fetchChats()
   console.log(
     'chats: ',
-    chats.value.map((chat) => chat.title)
+    chats.map((chat) => chat.title)
   )
 })
 </script>
@@ -55,7 +55,7 @@ onMounted(async () => {
   <div class="h-screen flex">
     <SideBar
       @toggle="sideStore.toggle"
-      :chats="chatStore.getChats"
+      :chats="chats"
       :isOpen="sideStore.isOpen"
       @renameChat="toggleRename"
       @deleteChat="toggleDelete"
