@@ -66,7 +66,7 @@ export const createNewChat = async (req, res, next) => {
     // send that first message too
     await sendMessageUtil(groq, pool, channel, message, null, userId, chat.id);
 
-    res.status(201).json({ chat });
+    res.status(201).json(chat);
   } catch (error) {
     console.log("failed creating a new chat", error);
     next(error);

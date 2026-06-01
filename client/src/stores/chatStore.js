@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useAuthStore } from '@/stores/authStore.js'
 import api from '@/services/api.js'
@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 
 export const useChatStore = defineStore('chat', () => {
   // * state
+  const chats = ref([])
   const messages = ref([])
   const isLoading = ref(false)
   const authStore = useAuthStore()
@@ -40,8 +41,10 @@ export const useChatStore = defineStore('chat', () => {
       const { data } = await api.patch(`/chats/${chatId}`, {
         title: title,
       })
-      console.log('updated title is ', data)
-      return data
+      const foundChat = chats.value.find((chat) => chat.id === chatId)
+
+      if (foundChat) foundChat.title = data.title //data.title
+      console.log('updated title is ', data.title)
     } catch (error) {
       console.log(error)
     }
@@ -110,6 +113,9 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
+  // * getters
+  const getChats = computed(() => chats.value)
+
   return {
     messages,
     isLoading,
@@ -119,6 +125,9 @@ export const useChatStore = defineStore('chat', () => {
     fetchMessages,
     deleteChat,
     renameChat,
+
+    // * getters
+    getChats,
   }
 })
 
