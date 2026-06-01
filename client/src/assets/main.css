@@ -185,7 +185,7 @@
   letter-spacing: -0.02em;
 }
 
-.button {
+/* .button {
   color: var(--primary-foreground);
   background-color: var(--primary);
   font-family: var(--font-sans);
@@ -194,9 +194,9 @@
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius);
   /* border-radius: calc(var(--radius) + 1rem); */
-  border: none;
-  cursor: pointer;
-  transition: filter 0.2s ease;
+border: none;
+cursor: pointer;
+transition: filter 0.2s ease;
 }
 
 .button:hover {
@@ -222,7 +222,7 @@
   color: var(--primary-foreground);
 }
 
-.text {
+*/ .text {
   color: var(--foreground);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -240,6 +240,42 @@
 
 .radius {
   border-radius: var(--radius);
+}
+
+.button {
+  color: var(--primary-foreground);
+  background-color: var(--primary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: filter 0.2s ease;
+}
+
+.button:hover {
+  filter: brightness(1.12);
+}
+
+.ghost-button {
+  color: var(--foreground);
+  background-color: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background-color 0.2s ease;
+}
+
+.ghost-button:hover {
+  background-color: var(--muted);
 }
 
 /* a global scroll bar */

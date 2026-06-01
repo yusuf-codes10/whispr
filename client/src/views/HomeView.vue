@@ -45,11 +45,18 @@ import NavBar from '@/components/NavBar.vue'
 <template>
   <div class="h-screen bg-background flex flex-col">
     <NavBar />
-    <div class="flex items-center justify-center flex-1">
-      <h1 class="text-2xl md:text-4xl">
+    <div class="flex items-center justify-center flex-1 flex-col">
+      <h1 class="text-2xl md:text-4xl mb-2">
         The AI that <span class="font-extrabold text-accent">thinks</span> before it
         <span class="font-extrabold text-primary">whispers!</span>
       </h1>
+      <p class="text-xs md:text-sm text-muted-foreground">
+        Whispr is your always-on AI companion — precise, fast, and hauntingly intuitive.
+      </p>
+      <div class="flex justify-between mt-8">
+        <button class="button">Start whispering</button>
+        <button class="ghost-button">See it in action</button>
+      </div>
     </div>
     <!-- <div class="bg-card py-8 px-8 rounded-xl border border-border shadow-lg w-80"> -->
     <!-- <img :src="whisprLogo" alt="" class="w-25 h-25 mx-auto" />

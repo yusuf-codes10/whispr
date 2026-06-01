@@ -16,7 +16,7 @@ import whisprLogo from '@/assets/whispr.png'
         <li>Blog</li>
       </ul>
     </div>
-    <button @click="authStore.logout" class="ghost-button">
+    <button class="ghost-button">
       <span class="muted-text">Get Started</span>
     </button>
   </div>
