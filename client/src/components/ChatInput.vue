@@ -12,13 +12,13 @@ const sendMessage = () => {
 </script>
 
 <template>
-  <div class="bg-secondary py-2 px-4 flex">
+  <div class="py-2 px-4 flex">
     <input
       v-model="message"
       @keyup.enter="sendMessage"
       placeholder="Send a message"
       type="text"
-      class="flex-1 p-2 rounded-lg bg-background text-white focus:outline-none"
+      class="flex-1 p-2 rounded-lg bg-secondary text-white focus:outline-none"
     />
     <button @click="sendMessage" class="ml-2 px-4 py-2 bg-primary rounded-lg">Send</button>
   </div>

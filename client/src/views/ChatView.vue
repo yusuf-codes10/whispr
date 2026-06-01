@@ -37,7 +37,7 @@ watch(
         id="chat-container"
         class="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center flex-col gap-2"
       >
-        Hello there {{ authStore.user?.name }}
+        <p class="text-xl md:text-3xl">Shall we begin? {{ authStore.user?.name }}</p>
         <ChatInput @send="createChat" />
       </div>
     </div>
