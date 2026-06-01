@@ -84,6 +84,7 @@ export const useChatStore = defineStore('chat', () => {
       const { data } = await api.post('/chats', {
         message: message,
       })
+      chats.value.push(data.chat)
       console.log(data.chat)
       return data.chat
     } catch (error) {
