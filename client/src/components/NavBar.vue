@@ -9,7 +9,7 @@ import whisprLogo from '@/assets/whispr.png'
       <h1 class="text-xl text-primary font-extrabold">Whispr</h1>
     </div>
     <div>
-      <ul class="inline-flex gap-4">
+      <ul class="hidden md:inline-flex gap-4">
         <li>Features</li>
         <li>Pricings</li>
         <li>Docs</li>

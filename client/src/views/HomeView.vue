@@ -45,8 +45,14 @@ import NavBar from '@/components/NavBar.vue'
 <template>
   <div class="h-screen bg-background flex flex-col">
     <NavBar />
-    <div class="bg-card py-8 px-8 rounded-xl border border-border shadow-lg w-80">
-      <!-- <img :src="whisprLogo" alt="" class="w-25 h-25 mx-auto" />
+    <div class="flex items-center justify-center flex-1">
+      <h1 class="text-2xl md:text-4xl">
+        The AI that <span class="font-extrabold text-accent">thinks</span> before it
+        <span class="font-extrabold text-primary">whispers!</span>
+      </h1>
+    </div>
+    <!-- <div class="bg-card py-8 px-8 rounded-xl border border-border shadow-lg w-80"> -->
+    <!-- <img :src="whisprLogo" alt="" class="w-25 h-25 mx-auto" />
       <h1 class="title text-center mb-6">Welcome to Whispr</h1>
 
       <RouterLink :to="{ name: 'SignUp' }">
@@ -55,6 +61,6 @@ import NavBar from '@/components/NavBar.vue'
         </button>
       </RouterLink>
       <p v-if="error" class="text-destructive text-center">{{ error }}</p> -->
-    </div>
+    <!-- </div> -->
   </div>
 </template>
