@@ -62,7 +62,7 @@ onMounted(async () => {
     <!-- rename modal -->
     <ModalWindow :isOpen="isRenameOpen" title="Remove item" @close="toggleRename">
       <div class="bg-background p-4">
-        <input type="text" placeholder="New chat title" />
+        <input type="text" placeholder="New chat title" v-model="title" />
         <button @click="handleRename">Submit</button>
       </div>
     </ModalWindow>
