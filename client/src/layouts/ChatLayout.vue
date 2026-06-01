@@ -8,7 +8,7 @@ import { ref, onMounted } from 'vue'
 const chatStore = useChatStore()
 const sideStore = useSideStore()
 
-const chats = chatStore.getChats
+// const chats = chatStore.chats
 const selectedDeletedId = ref(null)
 const selectedRenamedId = ref(null)
 const isRenameOpen = ref(false)
@@ -51,7 +51,7 @@ onMounted(async () => {
   <div class="h-screen flex">
     <SideBar
       @toggle="sideStore.toggle"
-      :chats="chats"
+      :chats="chatStore.getChats"
       :isOpen="sideStore.isOpen"
       @renameChat="toggleRename"
       @deleteChat="toggleDelete"

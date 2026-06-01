@@ -126,6 +126,9 @@ export const useChatStore = defineStore('chat', () => {
   const getChats = computed(() => chats.value)
 
   return {
+    // * state
+    chats,
+
     messages,
     isLoading,
     fetchChats,
