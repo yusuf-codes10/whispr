@@ -36,7 +36,12 @@ const handleDelete = async () => {
 }
 
 const handleRename = async () => {
-  await chatStore.renameChat(selectedRenamedId.value, title.value)
+  const updatedChat = await chatStore.renameChat(selectedRenamedId.value, title.value)
+
+  // update the chats in client end
+  const foundChat = chats.value.find((chat) => chat.id === updatedChat.id)
+
+  if (foundChat) foundChat.title = updatedChat.title
   toggleRename()
 }
 
