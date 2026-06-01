@@ -20,8 +20,13 @@ export const useChatStore = defineStore('chat', () => {
     try {
       const { data } = await api.get(`/chats`)
 
-      console.log('raw data:', data) // 👈 what does this look like?
-      console.log('messages:', data.chat) // 👈 is this an array?
+      // console.log('raw data:', data) // 👈 what does this look like?
+      // console.log('messages:', data.chat) // 👈 is this an array?
+
+      console.log('FULL RESPONSE:', data)
+      console.log('Array?', Array.isArray(data))
+      console.log('data.messages', data.messages)
+      console.log('data.chats', data.chats)
 
       // messages.value = data.messages
       //   .flatMap((msg) => [
@@ -30,8 +35,8 @@ export const useChatStore = defineStore('chat', () => {
       //   ])
       //   .filter((msg) => msg.content) // drops any entry where content is empty or null
       // console.log('messages: ', messages.value)
-      chats.value = data.messages
-      console.log('chats are', data.messages)
+      chats.value = data.chats
+      console.log('chats are', data.chats)
     } catch (error) {
       console.log('fetching chat error', error)
     }

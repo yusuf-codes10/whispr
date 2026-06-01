@@ -44,10 +44,6 @@ const handleRename = async () => {
 
 onMounted(async () => {
   await chatStore.fetchChats()
-  console.log(
-    'chats: ',
-    chats.map((chat) => chat.title)
-  )
 })
 </script>
 

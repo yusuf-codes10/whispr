@@ -25,7 +25,7 @@ export const getAllChats = async (req, res, next) => {
       "SELECT * FROM chats WHERE chats.user_id = $1",
       [userId],
     );
-    res.status(200).json({ messages: rows });
+    res.status(200).json({ chats: rows });
   } catch (error) {
     console.log("failed getting user chats", error);
     next(error);
