@@ -37,7 +37,7 @@ export const useChatStore = defineStore('chat', () => {
 
   const renameChat = async (chatId, title) => {
     try {
-      const response = await api.patch(`/${chatId}`, {
+      const response = await api.patch(`/chats/${chatId}`, {
         title: title,
       })
       console.log('updated title is ', response)
