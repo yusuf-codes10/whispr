@@ -31,10 +31,10 @@ const toggleDelete = (id) => {
 }
 
 const handleDelete = async () => {
-  await chatStore.deleteChat(selectedDeletedId.value)
+  const chatId = await chatStore.deleteChat(selectedDeletedId.value)
 
-  const
-
+  // filter out the deleted chat
+  chats.value = chats.value.filter((chat) => chat.id !== chatId)
   toggleDelete()
 }
 
