@@ -73,6 +73,26 @@ export const createNewChat = async (req, res, next) => {
   }
 };
 
+export const renameChat = async (req, res, next) => {
+  // grab the id
+  const chatId = req.params.id;
+  const {title} = req.body;
+  try {
+    const response = await pool.query('UPDATE chats SET chats.title = $1 WHERE chats.id = $2 RETURNING *', [title, chatId]);
+
+    const {rows, rowcount} = response;
+
+    if (rowcount === 0) return next(createError(500, 'Internal Server Error'));
+
+    const updatedChat = rows[0];
+
+    res.status(200).json(updatedChat);
+  } catch (error) {
+    console.log('error updating chat name', error.message);
+    next(error);
+  }
+}
+
 export const deleteChat = async (req, res, next) => {
   const userId = req.user.id;
   const chatId = req.params.id;
