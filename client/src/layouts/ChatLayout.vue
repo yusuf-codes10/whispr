@@ -21,10 +21,12 @@ const toggleRename = (id) => {
 const toggleDelete = (id) => {
   isDeleteOpen.value = !isDeleteOpen.value
   console.log('this is the chat id: ', id)
+  // if id not passed keep the old one
+  if (id) selectedChatId.value = id
 }
 
 const handleDelete = async () => {
-  await chatStore.deleteChat()
+  await chatStore.deleteChat(selectedChatId.value)
   toggleDelete()
 }
 
