@@ -78,7 +78,7 @@ export const renameChat = async (req, res, next) => {
   const chatId = req.params.id;
   const {title} = req.body;
   try {
-    const response = await pool.query('UPDATE chats SET chats.title = $1 WHERE chats.id = $2 RETURNING *', [title, chatId]);
+    const response = await pool.query('UPDATE chats SET title = $1 WHERE chats.id = $2 RETURNING *', [title, chatId]);
 
     const {rows, rowcount} = response;
 
