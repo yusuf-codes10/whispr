@@ -31,20 +31,14 @@ const toggleDelete = (id) => {
 }
 
 const handleDelete = async () => {
-  const chatId = await chatStore.deleteChat(selectedDeletedId.value)
+  await chatStore.deleteChat(selectedDeletedId.value)
 
-  // filter out the deleted chat
-  chats.value = chats.value.filter((chat) => chat.id !== chatId)
   toggleDelete()
 }
 
 const handleRename = async () => {
-  const updatedChat = await chatStore.renameChat(selectedRenamedId.value, title.value)
+  await chatStore.renameChat(selectedRenamedId.value, title.value)
 
-  // update the chats in client end
-  const foundChat = chats.value.find((chat) => chat.id === updatedChat.id)
-
-  if (foundChat) foundChat.title = updatedChat.title
   toggleRename()
 }
 
@@ -61,7 +55,7 @@ onMounted(async () => {
   <div class="h-screen flex">
     <SideBar
       @toggle="sideStore.toggle"
-      :chats="chats"
+      :chats="chatStore.getChats"
       :isOpen="sideStore.isOpen"
       @renameChat="toggleRename"
       @deleteChat="toggleDelete"
