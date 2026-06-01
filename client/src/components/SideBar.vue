@@ -1,6 +1,5 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore'
-import { useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
 import DropDownMenu from './DropDownMenu.vue'
@@ -17,7 +16,6 @@ const props = defineProps({
 const emit = defineEmits(['toggle', 'renameChat', 'deleteChat'])
 
 const authStore = useAuthStore()
-const router = useRouter()
 const openDropdownId = ref(null)
 const dropdownRef = ref(null)
 
@@ -37,7 +35,6 @@ const closeDropDown = () => {
 
 const handeLogout = async () => {
   await authStore.logout()
-  router.push('/sign-up')
 }
 
 // add the listener when the component mounts
