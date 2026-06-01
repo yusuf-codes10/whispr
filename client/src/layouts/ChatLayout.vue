@@ -9,25 +9,35 @@ const chatStore = useChatStore()
 const sideStore = useSideStore()
 
 const chats = ref([])
-const selectedChatId = ref(null)
+const selectedDeletedId = ref(null)
+const selectedRenamedId = ref(null)
 const isRenameOpen = ref(false)
 const isDeleteOpen = ref(false)
+
+const title = ref('')
 
 const toggleRename = (id) => {
   isRenameOpen.value = !isRenameOpen.value
   console.log('this is the chat id: ', id)
+
+  if (id) selectedRenamedId.value = id
 }
 
 const toggleDelete = (id) => {
   isDeleteOpen.value = !isDeleteOpen.value
   console.log('this is the chat id: ', id)
   // if id not passed keep the old one
-  if (id) selectedChatId.value = id
+  if (id) selectedDeletedId.value = id
 }
 
 const handleDelete = async () => {
-  await chatStore.deleteChat(selectedChatId.value)
+  await chatStore.deleteChat(selectedDeletedId.value)
   toggleDelete()
+}
+
+const handleRename = async () => {
+  await chatStore.renameChat(selectedRenamedId.value, title.value)
+  toggleRename()
 }
 
 onMounted(async () => {
@@ -51,7 +61,10 @@ onMounted(async () => {
     <RouterView class="flex-1" />
     <!-- rename modal -->
     <ModalWindow :isOpen="isRenameOpen" title="Remove item" @close="toggleRename">
-      <div class="bg-background p-4"></div>
+      <div class="bg-background p-4">
+        <input type="text" placeholder="New chat title" />
+        <button @click="handleRename">Submit</button>
+      </div>
     </ModalWindow>
     <!-- delete modal -->
     <ModalWindow :isOpen="isDeleteOpen" title="Remove item" @close="toggleDelete">

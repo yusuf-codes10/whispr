@@ -35,6 +35,17 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
+  const renameChat = async (chatId, title) => {
+    try {
+      const response = await api.patch(`/${chatId}`, {
+        title: title,
+      })
+      console.log('updated title is ', response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const sendMessage = async (content) => {
     console.log('...')
 
@@ -98,7 +109,16 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
-  return { messages, isLoading, fetchChats, sendMessage, createChat, fetchMessages, deleteChat }
+  return {
+    messages,
+    isLoading,
+    fetchChats,
+    sendMessage,
+    createChat,
+    fetchMessages,
+    deleteChat,
+    renameChat,
+  }
 })
 
 // TODO: add error ref and maybe loading ref if relevant
