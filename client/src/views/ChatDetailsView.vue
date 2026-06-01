@@ -62,7 +62,11 @@ watch(
           <div
             v-html="formatMessage(msg.content)"
             class="max-w-xs px-4 py-2 rounded-lg md:max-w-md"
-            :class="msg.role === 'user' ? 'bg-primary text-white' : 'bg-card text-white'"
+            :class="
+              msg.role === 'user'
+                ? 'bg-accent/15 text-primary-foreground border border-accent/25'
+                : 'bg-primary/10 text-primary-foreground border border-primary/20'
+            "
           ></div>
         </div>
         <div v-if="chatStore.isLoading" class="flex justify-start">
@@ -75,3 +79,6 @@ watch(
     </div>
   </div>
 </template>
+
+
+            <!-- :class="msg.role === 'user' ? 'bg-primary text-white' : 'bg-card text-white'" -->
