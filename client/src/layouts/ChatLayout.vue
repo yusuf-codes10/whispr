@@ -32,6 +32,9 @@ const toggleDelete = (id) => {
 
 const handleDelete = async () => {
   await chatStore.deleteChat(selectedDeletedId.value)
+
+  const
+
   toggleDelete()
 }
 

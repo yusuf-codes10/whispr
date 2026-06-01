@@ -102,9 +102,9 @@ export const useChatStore = defineStore('chat', () => {
 
   const deleteChat = async (chatId) => {
     try {
-      const response = await api.delete(`chats/${chatId}`)
-      console.log('chat has been deleted', response)
-      return response
+      const { data } = await api.delete(`chats/${chatId}`)
+      console.log('chat has been deleted', data)
+      return data
     } catch (error) {
       console.log(error)
     }

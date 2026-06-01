@@ -110,7 +110,7 @@ export const deleteChat = async (req, res, next) => {
     // ✅ Use chatId, not userId
     const channel = chatClient.channel("messaging", `chat-${chatId}`);
     await channel.delete();
-    res.status(201).json({ msg: "chat has been deleted" });
+    res.status(200).json({ id: chatId });
   } catch (error) {
     console.log("error deelting chat: ", error);
     next(error);
