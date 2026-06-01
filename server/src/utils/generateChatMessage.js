@@ -7,7 +7,7 @@ const generateChatTitle = async (groq, message) => {
       messages: [{ role: "user", content: prompt + message }],
     });
     const title = response.choices[0].message.content;
-    return title;
+    return title.replace(/"/g, '');
 }
 
 export default generateChatTitle;

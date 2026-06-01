@@ -21,7 +21,7 @@ router.post("/", verifyToken, createNewChat);
 router.delete("/:id", verifyToken, deleteChat);
 
 // rename a chat
-router.patch("/:id", renameChat);
+router.patch("/:id", verifyToken, renameChat);
 
 // send a message
 // send a message
