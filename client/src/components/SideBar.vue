@@ -1,8 +1,9 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
 import DropDownMenu from './DropDownMenu.vue'
+import { useWindowSize } from '@vueuse/core'
 // import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
@@ -14,6 +15,13 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['toggle', 'renameChat', 'deleteChat'])
+
+const { width } = useWindowSize()
+const isMobile = computed(() => width.value < 768)
+
+// desktop: respect whatever the parent says (true = w-60, false = w-17.5)
+// mobile:  always say true, so it's always w-60 when visible
+const effectiveOpen = computed(() => (isMobile.value ? true : props.isOpen))
 
 const authStore = useAuthStore()
 const openDropdownId = ref(null)
@@ -52,7 +60,7 @@ onUnmounted(() => {
   <aside
     :class="[
       'h-screen flex flex-col bg-bg-surface text-text-primary overflow-hidden transition-[width] duration-300 ease-in-out border-r border-bg-border',
-      props.isOpen ? 'w-60' : 'w-17.5',
+      effectiveOpen ? 'w-60' : 'w-17.5',
     ]"
   >
     <!-- 1. Logo area -->
@@ -62,7 +70,7 @@ onUnmounted(() => {
         @click="emit('toggle')"
       >
         <span class="text-lg min-w-6 flex items-center justify-center">
-          <i v-if="props.isOpen" class="fa-solid fa-xmark"></i>
+          <i v-if="effectiveOpen" class="fa-solid fa-xmark"></i>
           <!-- whispr logo -->
           <img v-else :src="whisprLogo" alt="logo" class="h-8 w-8" />
         </span>
@@ -73,7 +81,7 @@ onUnmounted(() => {
           leave-to-class="opacity-0"
         >
           <span
-            v-if="props.isOpen"
+            v-if="effectiveOpen"
             class="font-display font-extralight tracking-[6px] text-text-primary text-base"
           >
           </span>
@@ -91,7 +99,7 @@ onUnmounted(() => {
         leave-to-class="opacity-0"
       >
         <p
-          v-if="props.isOpen"
+          v-if="effectiveOpen"
           class="text-[10px] uppercase tracking-widest text-text-muted px-2 pt-1 pb-1"
         >
           Chats
@@ -112,7 +120,7 @@ onUnmounted(() => {
           enter-from-class="opacity-0"
           leave-to-class="opacity-0"
         >
-          <span v-if="props.isOpen" class="whitespace-nowrap text-sm">New Chat</span>
+          <span v-if="effectiveOpen" class="whitespace-nowrap text-sm">New Chat</span>
         </transition>
       </RouterLink>
 
@@ -151,7 +159,7 @@ onUnmounted(() => {
             enter-from-class="opacity-0"
             leave-to-class="opacity-0"
           >
-            <span v-if="props.isOpen" class="whitespace-nowrap text-sm truncate">
+            <span v-if="effectiveOpen" class="whitespace-nowrap text-sm truncate">
               {{ chat.title.replace(/"/g, '') }}
             </span>
           </transition>
@@ -181,7 +189,7 @@ onUnmounted(() => {
           enter-from-class="opacity-0"
           leave-to-class="opacity-0"
         >
-          <div v-if="props.isOpen" class="flex flex-col min-w-0">
+          <div v-if="effectiveOpen" class="flex flex-col min-w-0">
             <span class="text-xs font-medium text-text-primary truncate">{{
               authStore.user?.name
             }}</span>
@@ -204,7 +212,7 @@ onUnmounted(() => {
           enter-from-class="opacity-0"
           leave-to-class="opacity-0"
         >
-          <span v-if="props.isOpen" class="whitespace-nowrap text-sm">{{ logoutItem.name }}</span>
+          <span v-if="effectiveOpen" class="whitespace-nowrap text-sm">{{ logoutItem.name }}</span>
         </transition>
       </div>
     </div>

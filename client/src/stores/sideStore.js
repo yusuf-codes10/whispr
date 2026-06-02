@@ -9,7 +9,7 @@ export const useSideStore = defineStore('sidebar', () => {
     isOpen.value = !isOpen.value
   }
 
-  const toggleIsMobile = () => {
+  const toggleMobile = () => {
     isMobile.value = !isMobile.value
   }
 
@@ -17,6 +17,6 @@ export const useSideStore = defineStore('sidebar', () => {
     isOpen,
     isMobile,
     toggle,
-    toggleIsMobile,
+    toggleMobile,
   }
 })

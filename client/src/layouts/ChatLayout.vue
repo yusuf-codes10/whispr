@@ -1,6 +1,7 @@
 <script setup>
 import ModalWindow from '@/components/ModalWindow.vue'
 import SideBar from '@/components/SideBar.vue'
+import TopBar from '@/components/TopBar.vue'
 import { useChatStore } from '@/stores/chatStore'
 import { useSideStore } from '@/stores/sideStore'
 import { ref, onMounted } from 'vue'
@@ -50,22 +51,29 @@ onMounted(async () => {
 <template>
   <div class="h-screen flex">
     <SideBar
-      :class="sideStore.isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
-      class="fixed md:relative z-40 transition-transform duration-300"
+      :class="[
+        sideStore.isMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+        'fixed md:relative z-40 transition-transform duration-300',
+      ]"
       @toggle="sideStore.toggle"
       :chats="chatStore.getChats"
       :isOpen="sideStore.isOpen"
       @renameChat="toggleRename"
       @deleteChat="toggleDelete"
     />
-    <!-- overlay -->
-    <div
+
+    <!-- <div
       v-if="sideStore.isOpen"
       class="fixed inset-0 bg-black/40 z-30 md:hidden"
       @click="sideStore.close"
-    />
+    /> -->
 
-    <RouterView class="flex-1" />
+    <div class="flex-1 flex flex-col min-h-0">
+      <TopBar />
+      <!-- hidden on md+ via md:hidden inside it -->
+      <RouterView class="flex-1" />
+    </div>
+
     <!-- rename modal -->
     <ModalWindow :isOpen="isRenameOpen" title="Remove item" @close="toggleRename">
       <div class="bg-background p-4">
