@@ -12,6 +12,9 @@ export const useChatStore = defineStore('chat', () => {
   const authStore = useAuthStore()
   const route = useRoute()
 
+  // ? unrelated isSending state
+  const isSending = ref(false)
+
   // * actions
   const fetchChats = async () => {
     // if (!userStore.userId) return
@@ -128,6 +131,7 @@ export const useChatStore = defineStore('chat', () => {
   return {
     // * state
     chats,
+    isSending,
 
     messages,
     isLoading,

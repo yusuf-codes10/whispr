@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-// import MainButton from './MainButton.vue'
 import SendButton from './SendButton.vue'
 
 const message = ref('')
@@ -30,9 +29,6 @@ const sendMessage = () => {
         class="resize-none overflow-y-auto col-start-1 row-start-1 px-7 py-3 rounded-lg bg-secondary text-white text-sm leading-relaxed focus:outline-none h-full"
       />
     </div>
-
-    <!-- items-end on parent keeps this pinned to bottom as textarea grows -->
-    <!-- <MainButton @click="sendMessage" title="Send" /> -->
     <SendButton class="absolute top-3.5 right-8" @click="sendMessage" />
   </div>
 </template>
