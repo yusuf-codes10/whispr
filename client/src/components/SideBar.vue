@@ -73,6 +73,7 @@ onUnmounted(() => {
       sideStore.isMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
       'transition-transform duration-300',
     ]"
+    style="background-color: var(--background)"
   >
     <!-- 1. Logo area -->
     <div class="border-b border-bg-border px-3 py-4 flex items-center gap-2.5">
