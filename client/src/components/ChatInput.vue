@@ -26,7 +26,7 @@ const sendMessage = () => {
         @keydown.enter.exact.prevent="sendMessage"
         placeholder="Send a message"
         rows="1"
-        class="resize-none overflow-y-auto col-start-1 row-start-1 px-3 py-2 rounded-lg bg-secondary text-white text-sm leading-relaxed focus:outline-none h-full"
+        class="resize-none overflow-y-auto col-start-1 row-start-1 px-7 py-3 rounded-lg bg-secondary text-white text-sm leading-relaxed focus:outline-none h-full"
       />
     </div>
 
