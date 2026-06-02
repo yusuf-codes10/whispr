@@ -81,7 +81,10 @@ onUnmounted(() => {
         class="flex items-center gap-2.5 rounded-4xl w-full cursor-pointer hover:bg-slate-800 p-1.5"
         @click="emit('toggle')"
       >
-        <span class="text-lg min-w-6 flex items-center justify-center">
+        <span
+          class="text-lg min-w-6 flex items-center justify-center"
+          @click="sideStore.toggleMobile"
+        >
           <i v-if="effectiveOpen" class="fa-solid fa-xmark"></i>
           <!-- whispr logo -->
           <img v-else :src="whisprLogo" alt="logo" class="h-8 w-8" />
