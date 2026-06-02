@@ -58,6 +58,13 @@ onMounted(async () => {
       @renameChat="toggleRename"
       @deleteChat="toggleDelete"
     />
+    <!-- overlay -->
+    <div
+      v-if="sideStore.isOpen"
+      class="fixed inset-0 bg-black/40 z-30 md:hidden"
+      @click="sideStore.close"
+    />
+
     <RouterView class="flex-1" />
     <!-- rename modal -->
     <ModalWindow :isOpen="isRenameOpen" title="Remove item" @close="toggleRename">
