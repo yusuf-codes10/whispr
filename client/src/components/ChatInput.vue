@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import MainButton from './MainButton.vue'
+// import MainButton from './MainButton.vue'
+import SendButton from './SendButton.vue'
 
 const message = ref('')
 const emit = defineEmits(['send'])
@@ -13,7 +14,7 @@ const sendMessage = () => {
 </script>
 
 <template>
-  <div class="py-2 px-4 flex items-end gap-2">
+  <div class="py-2 px-4 flex items-end gap-2 relative">
     <!-- max-h and overflow go on the grid wrapper, not the children -->
     <div class="inline-grid flex-1 min-w-0 max-h-40 overflow-hidden">
       <span
@@ -31,6 +32,7 @@ const sendMessage = () => {
     </div>
 
     <!-- items-end on parent keeps this pinned to bottom as textarea grows -->
-    <MainButton @click="sendMessage" title="Send" />
+    <!-- <MainButton @click="sendMessage" title="Send" /> -->
+    <SendButton class="absolute top-3.5 right-8" @click="sendMessage" />
   </div>
 </template>
