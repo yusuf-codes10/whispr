@@ -50,7 +50,8 @@ onMounted(async () => {
 <template>
   <div class="h-screen flex">
     <SideBar
-      class="hidden md:flex"
+      :class="sideStore.isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
+      class="fixed md:relative z-40 transition-transform duration-300"
       @toggle="sideStore.toggle"
       :chats="chatStore.getChats"
       :isOpen="sideStore.isOpen"
