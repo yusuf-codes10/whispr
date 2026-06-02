@@ -32,6 +32,7 @@ const getGoogleUrl = async () => {
         :disabled="loading"
         :title="loading ? 'Logging in...' : 'Continue with Google'"
         @click="getGoogleUrl"
+        class="w-full"
       />
       <hr />
 
