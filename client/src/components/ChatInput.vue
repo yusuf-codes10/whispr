@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import MainButton from './MainButton.vue'
 
 const message = ref('')
 const emit = defineEmits(['send'])
@@ -20,6 +21,7 @@ const sendMessage = () => {
       type="text"
       class="flex-1 p-2 rounded-lg bg-secondary text-white focus:outline-none"
     />
-    <button @click="sendMessage" class="button">Send</button>
+    <!-- <button @click="sendMessage" class="button">Send</button> -->
+    <MainButton @click="sendMessage" title="Send" />
   </div>
 </template>
