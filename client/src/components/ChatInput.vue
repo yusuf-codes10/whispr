@@ -13,23 +13,24 @@ const sendMessage = () => {
 </script>
 
 <template>
-  <div class="py-2 px-4 flex">
-    <div class="inline-grid flex-1 min-w-0">
-      <!-- mirror -->
+  <div class="py-2 px-4 flex items-end gap-2">
+    <!-- max-h and overflow go on the grid wrapper, not the children -->
+    <div class="inline-grid flex-1 min-w-0 max-h-40 overflow-hidden">
       <span
-        class="invisible whitespace-pre-wrap wrap-break-words col-start-1 row-start-1 px-3 py-2 rounded-lg border border-transparent text-sm leading-relaxed max-h-40"
+        class="invisible whitespace-pre-wrap wrap-break-words col-start-1 row-start-1 px-3 py-2 text-sm leading-relaxed"
         >{{ message + '\n' }}</span
       >
 
-      <!-- textarea-->
       <textarea
         v-model="message"
         @keydown.enter.exact.prevent="sendMessage"
         placeholder="Send a message"
         rows="1"
-        class="resize-none overflow-y-auto col-start-1 row-start-1 px-3 py-2 rounded-lg bg-secondary text-white text-sm leading-relaxed focus:outline-none max-h-40"
+        class="resize-none overflow-y-auto col-start-1 row-start-1 px-3 py-2 rounded-lg bg-secondary text-white text-sm leading-relaxed focus:outline-none h-full"
       />
     </div>
+
+    <!-- items-end on parent keeps this pinned to bottom as textarea grows -->
     <MainButton @click="sendMessage" title="Send" />
   </div>
 </template>
