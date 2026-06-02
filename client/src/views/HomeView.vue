@@ -1,4 +1,5 @@
 <script setup>
+import MainButton from '@/components/MainButton.vue'
 import NavBar from '@/components/NavBar.vue'
 
 // import { ref } from 'vue'
@@ -55,7 +56,7 @@ import NavBar from '@/components/NavBar.vue'
       </p>
       <div class="flex flex-col md:flex-row justify-between mt-8 gap-2">
         <RouterLink :to="{ name: 'SignUp' }">
-          <button class="button">Start whispering</button>
+          <MainButton :title="'Start Whispering'" />
         </RouterLink>
         <button class="ghost-button">See it in action</button>
       </div>
