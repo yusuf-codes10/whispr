@@ -1,5 +1,6 @@
 <script setup>
 import whisprLogo from '@/assets/whispr.png'
+import GhostButton from './GhostButton.vue'
 </script>
 
 <template>
@@ -16,8 +17,6 @@ import whisprLogo from '@/assets/whispr.png'
         <li>Blog</li>
       </ul>
     </div>
-    <button class="ghost-button">
-      <span class="muted-text">Get Started</span>
-    </button>
+    <GhostButton title="Get Started" />
   </div>
 </template>

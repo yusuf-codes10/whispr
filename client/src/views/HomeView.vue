@@ -1,4 +1,5 @@
 <script setup>
+import GhostButton from '@/components/GhostButton.vue'
 import MainButton from '@/components/MainButton.vue'
 import NavBar from '@/components/NavBar.vue'
 
@@ -58,7 +59,7 @@ import NavBar from '@/components/NavBar.vue'
         <RouterLink :to="{ name: 'SignUp' }">
           <MainButton :title="'Start Whispering'" />
         </RouterLink>
-        <button class="ghost-button">See it in action</button>
+        <GhostButton title="See it in action" />
       </div>
     </div>
     <!-- <div class="bg-card py-8 px-8 rounded-xl border border-border shadow-lg w-80"> -->
