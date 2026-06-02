@@ -1,5 +1,6 @@
 <script setup>
 import { useAuthStore } from '@/stores/authStore'
+import { useSideStore } from '@/stores/sideStore.js'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
 import DropDownMenu from './DropDownMenu.vue'
@@ -24,6 +25,7 @@ const isMobile = computed(() => width.value < 768)
 const effectiveOpen = computed(() => (isMobile.value ? true : props.isOpen))
 
 const authStore = useAuthStore()
+const sideStore = useSideStore()
 const openDropdownId = ref(null)
 const dropdownRef = ref(null)
 
@@ -59,8 +61,17 @@ onUnmounted(() => {
 <template>
   <aside
     :class="[
-      'h-screen flex flex-col bg-bg-surface text-text-primary overflow-hidden transition-[width] duration-300 ease-in-out border-r border-bg-border',
+      // base styles
+      'h-screen flex flex-col bg-bg-surface text-text-primary border-r border-bg-border',
+      // width phase (desktop only)
       effectiveOpen ? 'w-60' : 'w-17.5',
+      // width transition (desktop only)
+      'transition-[width] duration-300 ease-in-out',
+      // positioning
+      'fixed md:relative z-40',
+      // mobile slide in/out — driven by isMobile from store
+      sideStore.isMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
+      'transition-transform duration-300',
     ]"
   >
     <!-- 1. Logo area -->
