@@ -14,19 +14,20 @@ const sendMessage = () => {
 
 <template>
   <div class="py-2 px-4 flex">
-    <div class="inline-grid">
-      <!-- invisible mirror -->
-      <span class="invisible col-start-1 row-start-1 px-3 py-2 border whitespace-pre">
-        {{ message || ' ' }}
-      </span>
+    <div class="inline-grid flex-1 min-w-0">
+      <!-- mirror -->
+      <span
+        class="invisible whitespace-pre-wrap wrap-break-words col-start-1 row-start-1 px-3 py-2 rounded-lg border border-transparent text-sm leading-relaxed max-h-40"
+        >{{ message + '\n' }}</span
+      >
 
-      <!-- actual input -->
-      <input
+      <!-- textarea-->
+      <textarea
         v-model="message"
-        @keyup.enter="sendMessage"
+        @keydown.enter.exact.prevent="sendMessage"
         placeholder="Send a message"
-        type="text"
-        class="flex-1 px-7 py-3 rounded-lg bg-secondary text-white focus:outline-none"
+        rows="1"
+        class="resize-none overflow-y-auto col-start-1 row-start-1 px-3 py-2 rounded-lg bg-secondary text-white text-sm leading-relaxed focus:outline-none max-h-40"
       />
     </div>
     <MainButton @click="sendMessage" title="Send" />
