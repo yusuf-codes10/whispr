@@ -6,10 +6,13 @@
   "author": "yusufcodes10",
   "type": "module",
   "main": "server.js",
+  "jest": {
+    "transform": {}
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch --env-file=.env server.js",
-    "test": "jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "dependencies": {
     "colors": "^1.4.0",

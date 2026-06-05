@@ -33,3 +33,5 @@ app.use(catchAll);
 app.use(handleError);
 
 app.listen(port, () => console.log(`server's running on ${port}`));
+
+export default app;
