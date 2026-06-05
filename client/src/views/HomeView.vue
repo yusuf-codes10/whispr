@@ -2,7 +2,7 @@
 import GhostButton from '@/components/ui/GhostButton.vue'
 import MainButton from '@/components/ui/MainButton.vue'
 import NavBar from '@/layouts/NavBar.vue'
-import { ref } from 'vue'
+import FooterComp from '@/layouts/FooterComp.vue'
 
 const stats = [
   { value: '2M+', label: 'Active users' },
@@ -174,5 +174,7 @@ const steps = [
         <GhostButton title="Talk to sales" />
       </div>
     </div>
+
+    <FooterComp />
   </div>
 </template>
