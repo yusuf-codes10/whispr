@@ -1,6 +1,6 @@
 <script setup>
 import whisprLogo from '@/assets/whispr.png'
-import GhostButton from './GhostButton.vue'
+import GhostButton from '../GhostButton.vue'
 </script>
 
 <template>

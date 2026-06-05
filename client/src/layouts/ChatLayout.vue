@@ -1,7 +1,7 @@
 <script setup>
 import ModalWindow from '@/components/ModalWindow.vue'
-import SideBar from '@/components/SideBar.vue'
-import TopBar from '@/components/TopBar.vue'
+import SideBar from '@/components/layout/SideBar.vue'
+import TopBar from '@/components/layout/TopBar.vue'
 import { useChatStore } from '@/stores/chatStore'
 import { useSideStore } from '@/stores/sideStore'
 import { ref, onMounted } from 'vue'
