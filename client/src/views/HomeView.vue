@@ -157,5 +157,22 @@ const steps = [
         </div>
       </div>
     </div>
+
+    <!-- CTA -->
+    <div class="max-w-3xl mx-auto px-4 py-24 text-center w-full">
+      <h2 class="text-2xl md:text-3xl font-black tracking-tight text-foreground mb-3">
+        Ready to whisper something<br class="hidden sm:block" />
+        into existence?
+      </h2>
+      <p class="text-sm text-muted-foreground mb-8">
+        Free forever for solo users. No credit card required.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <RouterLink :to="{ name: 'SignUp' }">
+          <MainButton title="Create free account" />
+        </RouterLink>
+        <GhostButton title="Talk to sales" />
+      </div>
+    </div>
   </div>
 </template>
