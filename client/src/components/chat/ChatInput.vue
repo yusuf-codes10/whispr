@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import SendButton from './SendButton.vue'
+import SendButton from '../ui/SendButton.vue'
 
 const message = ref('')
 const emit = defineEmits(['send'])

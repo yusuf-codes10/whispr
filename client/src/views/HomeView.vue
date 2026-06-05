@@ -1,6 +1,6 @@
 <script setup>
-import GhostButton from '@/components/GhostButton.vue'
-import MainButton from '@/components/MainButton.vue'
+import GhostButton from '@/components/ui/GhostButton.vue'
+import MainButton from '@/components/ui/MainButton.vue'
 import NavBar from '@/components/layout/NavBar.vue'
 
 // import { ref } from 'vue'

@@ -1,7 +1,7 @@
 <script setup>
 import { nextTick, watch } from 'vue'
 import { useChatStore } from '@/stores/chatStore'
-import ChatInput from '@/components/ChatInput.vue'
+import ChatInput from '@/components/chat/ChatInput.vue'
 import { useRoute } from 'vue-router'
 
 const chatStore = useChatStore()

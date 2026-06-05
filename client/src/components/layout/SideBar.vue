@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useSideStore } from '@/stores/sideStore.js'
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import whisprLogo from '@/assets/whispr.png'
-import DropDownMenu from '../DropDownMenu.vue'
+import DropDownMenu from '../ui/DropDownMenu.vue'
 import { useWindowSize } from '@vueuse/core'
 // import { onClickOutside } from '@vueuse/core'
 

@@ -1,6 +1,6 @@
 <script setup>
 // import whisprLogo from '@/assets/whispr.png'
-import GhostButton from '@/components/GhostButton.vue'
+import GhostButton from '@/components/ui/GhostButton.vue'
 import api from '@/services/api.js'
 import { ref } from 'vue'
 // import { onMounted } from 'vue'
