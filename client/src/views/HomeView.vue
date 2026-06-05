@@ -70,9 +70,10 @@ const steps = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-background flex flex-col">
+  <div class="bg-background flex flex-col">
     <NavBar />
-    <div class="flex items-center justify-center flex-1 flex-col text-center px-4">
+    <!-- Hero -->
+    <div class="h-[calc(100dvh-64px)] flex items-center justify-center flex-col text-center px-4">
       <span
         class="inline-flex items-center gap-2 text-accent text-xs font-semibold tracking-widest uppercase border border-accent/30 bg-accent/5 rounded-full px-4 py-1.5 mb-6"
       >
