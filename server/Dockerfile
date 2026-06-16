@@ -1,9 +1,10 @@
 # the main images
 FROM node:24-alpine
 
-COPY /app/package.json
+WORKDIR /app/
 
-WORKDIR /app
+COPY package.json .
+
 
 RUN npm install
 
