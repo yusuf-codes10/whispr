@@ -6,7 +6,7 @@ const sideStore = useSideStore()
 
 <template>
   <header class="md:hidden flex items-center px-4 py-3 bg-bg-surface border-b border-bg-border">
-    <button @click="sideStore.toggleMobile">
+    <button @click="sideStore.toggleDrawer">
       <i class="fa-solid fa-bars text-text-primary"></i>
     </button>
   </header>
