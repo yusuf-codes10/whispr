@@ -59,6 +59,11 @@
   --shadow-2xl: 0px 4px 8px -2px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  /* Third step of the text hierarchy. Derived rather than hardcoded so it
+     follows the theme automatically. Swap for a literal oklch() if you'd
+     rather pin it by hand. */
+  --foreground-dim: color-mix(in oklch, var(--muted-foreground) 75%, var(--background));
 }
 
 .dark {
@@ -112,6 +117,8 @@
   --shadow-lg: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 4px 6px -3px hsl(0 0% 0% / 0.10);
   --shadow-xl: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 8px 10px -3px hsl(0 0% 0% / 0.10);
   --shadow-2xl: 0px 4px 8px -2px hsl(0 0% 0% / 0.25);
+
+  --foreground-dim: color-mix(in oklch, var(--muted-foreground) 75%, var(--background));
 }
 
 @theme inline {
@@ -148,9 +155,24 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Semantic aliases actually used by the components.
+     These map onto the existing palette above so there is still a single
+     source of truth for colour — nothing new is invented here.
+
+     Elevation scale (dark):  background 0.1649  ->  muted 0.2123  ->  card 0.2542
+     Elevation scale (light): background 0.9816  ->  muted 0.9595  ->  card 1.0 */
+  --color-bg-surface: var(--muted);
+  --color-bg-raised: var(--card);
+  --color-bg-border: var(--border);
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: var(--muted-foreground);
+  --color-text-muted: var(--foreground-dim);
+  --color-danger: var(--destructive);
+
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
+  --font-display: var(--font-sans);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
