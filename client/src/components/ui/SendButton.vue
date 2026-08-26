@@ -11,7 +11,7 @@ defineEmits(['click'])
   <button
     :disabled="disabled || loading"
     @click="$emit('click')"
-    class="bg-primary text-primary-foreground font-sans text-sm font-bold rounded-[50%] p-2 border-0 cursor-pointer tracking-[0.04em] transition-[filter] duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
+    class="bg-primary text-primary-foreground font-sans text-sm font-bold size-9 shrink-0 grid place-items-center rounded-full border-0 cursor-pointer tracking-[0.04em] transition-[filter] duration-200 hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
   >
     <span
       v-if="loading"
