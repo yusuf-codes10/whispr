@@ -40,7 +40,9 @@ defineEmits(['close'])
 }
 
 .modal {
-  background: var(--color-bg-raised);
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--foreground);
   padding: 20px;
   border-radius: 12px;
   width: 300px;
