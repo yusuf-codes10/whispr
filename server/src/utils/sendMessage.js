@@ -9,7 +9,8 @@ const sendMessageUtil = async (groq, pool, channel, content, conversation, userI
   await channel.sendMessage({ text: content, user_id: String(userId) }); // ✅ always a string
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
+    // model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-20b",
     messages: groqMessages, //  uses conversation context
   });
 
