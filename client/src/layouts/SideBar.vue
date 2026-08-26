@@ -106,13 +106,12 @@ onUnmounted(() => {
       'h-screen flex flex-col bg-bg-surface text-text-primary border-r border-bg-border',
       // width phase (desktop only)
       effectiveOpen ? 'w-60' : 'w-17.5',
-      // width transition (desktop only)
-      'transition-[width] duration-300 ease-in-out',
+      // single combined transition so width + transform + opacity all animate together
+      'transition-[width,transform,opacity] duration-300 ease-in-out',
       // positioning
       'fixed md:relative z-40',
       // mobile slide in/out — driven by the drawer flag in the store
       sideStore.isDrawerOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
-      'transition-transform duration-300',
     ]"
   >
     <!-- 1. Logo area -->
@@ -184,7 +183,12 @@ onUnmounted(() => {
       </RouterLink>
 
       <!-- Scrolling invalidates the captured trigger position, so close the menu -->
-      <div v-if="effectiveOpen" class="flex flex-col gap-0.5 overflow-y-auto min-h-0" @scroll="closeDropDown">
+      <div
+        v-show="effectiveOpen"
+        class="flex flex-col gap-0.5 overflow-y-auto min-h-0 transition-opacity duration-300 ease-in-out"
+        :class="effectiveOpen ? 'opacity-100' : 'opacity-0'"
+        @scroll="closeDropDown"
+      >
         <RouterLink
           v-for="chat in chats"
           :key="chat.id"
