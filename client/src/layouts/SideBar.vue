@@ -184,7 +184,7 @@ onUnmounted(() => {
       </RouterLink>
 
       <!-- Scrolling invalidates the captured trigger position, so close the menu -->
-      <div class="flex flex-col gap-0.5 overflow-y-auto min-h-0" @scroll="closeDropDown">
+      <div v-if="effectiveOpen" class="flex flex-col gap-0.5 overflow-y-auto min-h-0" @scroll="closeDropDown">
         <RouterLink
           v-for="chat in chats"
           :key="chat.id"
