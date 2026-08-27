@@ -26,7 +26,7 @@ const sendMessage = () => {
 </script>
 
 <template>
-  <div class="py-2 px-4 flex items-end gap-2">
+  <div class="py-2 px-4 flex items-end gap-2 fixed bottom-0 w-full md:w-[calc(100vw-69.2px)]">
     <!-- max-h and overflow go on the grid wrapper, not the children -->
     <div class="inline-grid flex-1 min-w-0 max-h-40 overflow-hidden">
       <span
