@@ -44,7 +44,7 @@ watch(
 </script>
 
 <template>
-  <div class="h-screen bg-background flex">
+  <div class="h-full min-h-0 bg-background flex">
     <!-- <NavBar /> -->
 
     <!-- chat -->

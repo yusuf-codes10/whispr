@@ -52,7 +52,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="h-screen flex">
+  <div class="h-screen flex min-h-0">
     <SideBar
       @toggle="sideStore.toggle"
       :chats="chatStore.getChats"
